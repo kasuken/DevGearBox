@@ -80,6 +80,7 @@
             btnAbout.TabIndex = 2;
             btnAbout.Text = "About";
             btnAbout.UseVisualStyleBackColor = true;
+            btnAbout.Click += btnAbout_Click;
             // 
             // FrmMain
             // 

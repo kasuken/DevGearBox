@@ -14,5 +14,11 @@ namespace DevGearBox.Win
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(new JsonFormatterCtl());
         }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(new AboutCtl());
+        }
     }
 }
