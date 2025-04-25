@@ -1,14 +1,5 @@
 ﻿using DevGearBox.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using static DevGearBox.Win.Program;
 
 namespace DevGearBox.Win.Controls
@@ -31,12 +22,25 @@ namespace DevGearBox.Win.Controls
 
         private void btnFormatJSON_Click(object sender, EventArgs e)
         {
-            txtResult.Text = toolsServices.FormaJson(txtSource.Text);
+            txtResult.Text = toolsServices.FormatJson(txtSource.Text);
         }
 
         private void JsonFormatterCtl_Click(object sender, EventArgs e)
         {
-            if (toolsServices.ValidateJson(txtResult.Text))
+        }
+
+        private void btnCopyToClipboard_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtResult.Text))
+            {
+                Clipboard.SetText(txtResult.Text);
+                MessageBox.Show("The result is in your clipboard.");
+            }
+        }
+
+        private void btnValidateJSON_Click(object sender, EventArgs e)
+        {
+            if (toolsServices.ValidateJson(txtSource.Text))
             {
                 MessageBox.Show("JSON is valid.");
             }
@@ -44,12 +48,6 @@ namespace DevGearBox.Win.Controls
             {
                 MessageBox.Show("JSON is not valid.");
             }
-        }
-
-        private void btnCopyToClipboard_Click(object sender, EventArgs e)
-        {
-            Clipboard.SetText(txtResult.Text);
-            MessageBox.Show("The result is in your clipboard.");
         }
     }
 }

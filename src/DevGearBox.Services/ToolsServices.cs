@@ -6,7 +6,7 @@ namespace DevGearBox.Services
     public class ToolsServices
     {
 
-        public string FormaJson(string json)
+        public string FormatJson(string json)
         {
             try
             {
@@ -29,6 +29,20 @@ namespace DevGearBox.Services
             catch (JsonReaderException)
             {
                 return false;  // JSON is invalid
+            }
+        }
+
+        public string ConvertJsonToYaml(string json)
+        {
+            try
+            {
+                var parsedJson = JToken.Parse(json);
+                var yaml = new YamlDotNet.Serialization.Serializer().Serialize(parsedJson);
+                return yaml;
+            }
+            catch (JsonReaderException)
+            {
+                return "Invalid JSON format.";
             }
         }
     }

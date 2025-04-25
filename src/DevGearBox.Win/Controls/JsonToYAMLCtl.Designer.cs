@@ -1,6 +1,6 @@
 ﻿namespace DevGearBox.Win.Controls
 {
-    partial class JsonFormatterCtl
+    partial class JsonToYAMLCtl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,25 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnFormatJSON = new Button();
+            btnConvert = new Button();
             txtSource = new TextBox();
             label1 = new Label();
             label2 = new Label();
             txtResult = new TextBox();
-            btnValidateJSON = new Button();
             btnCopyToClipboard = new Button();
             SuspendLayout();
             // 
-            // btnFormatJSON
+            // btnConvert
             // 
-            btnFormatJSON.Location = new Point(626, 802);
-            btnFormatJSON.Margin = new Padding(3, 2, 3, 2);
-            btnFormatJSON.Name = "btnFormatJSON";
-            btnFormatJSON.Size = new Size(192, 43);
-            btnFormatJSON.TabIndex = 0;
-            btnFormatJSON.Text = "Format JSON";
-            btnFormatJSON.UseVisualStyleBackColor = true;
-            btnFormatJSON.Click += btnFormatJSON_Click;
+            btnConvert.Location = new Point(626, 802);
+            btnConvert.Margin = new Padding(3, 2, 3, 2);
+            btnConvert.Name = "btnConvert";
+            btnConvert.Size = new Size(192, 43);
+            btnConvert.TabIndex = 0;
+            btnConvert.Text = "Convert";
+            btnConvert.UseVisualStyleBackColor = true;
+            btnConvert.Click += btnConvert_Click;
             // 
             // txtSource
             // 
@@ -86,17 +85,6 @@
             txtResult.Size = new Size(816, 457);
             txtResult.TabIndex = 3;
             // 
-            // btnValidateJSON
-            // 
-            btnValidateJSON.Location = new Point(430, 802);
-            btnValidateJSON.Margin = new Padding(3, 2, 3, 2);
-            btnValidateJSON.Name = "btnValidateJSON";
-            btnValidateJSON.Size = new Size(192, 43);
-            btnValidateJSON.TabIndex = 5;
-            btnValidateJSON.Text = "Validate JSON";
-            btnValidateJSON.UseVisualStyleBackColor = true;
-            btnValidateJSON.Click += btnValidateJSON_Click;
-            // 
             // btnCopyToClipboard
             // 
             btnCopyToClipboard.Location = new Point(783, 314);
@@ -108,34 +96,30 @@
             btnCopyToClipboard.UseVisualStyleBackColor = true;
             btnCopyToClipboard.Click += btnCopyToClipboard_Click;
             // 
-            // JsonFormatterCtl
+            // JsonToYAMLCtl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(btnCopyToClipboard);
-            Controls.Add(btnValidateJSON);
             Controls.Add(label2);
             Controls.Add(txtResult);
             Controls.Add(label1);
             Controls.Add(txtSource);
-            Controls.Add(btnFormatJSON);
+            Controls.Add(btnConvert);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "JsonFormatterCtl";
+            Name = "JsonToYAMLCtl";
             Size = new Size(821, 847);
-            Load += JsonFormatterCtl_Load;
-            Click += JsonFormatterCtl_Click;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btnFormatJSON;
+        private Button btnConvert;
         private TextBox txtSource;
         private Label label1;
         private Label label2;
         private TextBox txtResult;
-        private Button btnValidateJSON;
         private Button btnCopyToClipboard;
     }
 }

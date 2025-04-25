@@ -10,6 +10,13 @@ namespace DevGearBox.Win
             InitializeComponent();
         }
 
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            // Set the default control to be displayed
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(new JsonFormatterCtl());
+        }
+
         private void btnJSONFormatter_Click(object sender, EventArgs e)
         {
             pnlMain.Controls.Clear();
@@ -20,6 +27,12 @@ namespace DevGearBox.Win
         {
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(new AboutCtl());
+        }
+
+        private void btnJSONtoYAML_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(new JsonToYAMLCtl());
         }
     }
 }

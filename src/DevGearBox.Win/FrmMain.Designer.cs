@@ -29,37 +29,52 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button1 = new Button();
+            btnAbout = new Button();
+            btnJSONtoYAML = new Button();
             btnJSONFormatter = new Button();
             pnlMain = new Panel();
-            btnAbout = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Controls.Add(btnAbout);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnJSONtoYAML);
             panel1.Controls.Add(btnJSONFormatter);
-            panel1.Location = new Point(12, 12);
+            panel1.Location = new Point(10, 9);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(214, 1129);
+            panel1.Size = new Size(187, 847);
             panel1.TabIndex = 0;
             // 
-            // button1
+            // btnAbout
             // 
-            button1.Location = new Point(12, 72);
-            button1.Name = "button1";
-            button1.Size = new Size(184, 47);
-            button1.TabIndex = 1;
-            button1.Text = "JSON to YAML";
-            button1.UseVisualStyleBackColor = true;
+            btnAbout.Location = new Point(10, 809);
+            btnAbout.Margin = new Padding(3, 2, 3, 2);
+            btnAbout.Name = "btnAbout";
+            btnAbout.Size = new Size(161, 35);
+            btnAbout.TabIndex = 2;
+            btnAbout.Text = "About";
+            btnAbout.UseVisualStyleBackColor = true;
+            btnAbout.Click += btnAbout_Click;
+            // 
+            // btnJSONtoYAML
+            // 
+            btnJSONtoYAML.Location = new Point(10, 54);
+            btnJSONtoYAML.Margin = new Padding(3, 2, 3, 2);
+            btnJSONtoYAML.Name = "btnJSONtoYAML";
+            btnJSONtoYAML.Size = new Size(161, 35);
+            btnJSONtoYAML.TabIndex = 1;
+            btnJSONtoYAML.Text = "JSON to YAML";
+            btnJSONtoYAML.UseVisualStyleBackColor = true;
+            btnJSONtoYAML.Click += btnJSONtoYAML_Click;
             // 
             // btnJSONFormatter
             // 
-            btnJSONFormatter.Location = new Point(12, 19);
+            btnJSONFormatter.Location = new Point(10, 14);
+            btnJSONFormatter.Margin = new Padding(3, 2, 3, 2);
             btnJSONFormatter.Name = "btnJSONFormatter";
-            btnJSONFormatter.Size = new Size(184, 47);
+            btnJSONFormatter.Size = new Size(161, 35);
             btnJSONFormatter.TabIndex = 0;
             btnJSONFormatter.Text = "JSON Formatter";
             btnJSONFormatter.UseVisualStyleBackColor = true;
@@ -67,32 +82,25 @@
             // 
             // pnlMain
             // 
-            pnlMain.Location = new Point(232, 12);
+            pnlMain.Location = new Point(203, 9);
+            pnlMain.Margin = new Padding(3, 2, 3, 2);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(938, 1129);
+            pnlMain.Size = new Size(821, 847);
             pnlMain.TabIndex = 1;
-            // 
-            // btnAbout
-            // 
-            btnAbout.Location = new Point(12, 1079);
-            btnAbout.Name = "btnAbout";
-            btnAbout.Size = new Size(184, 47);
-            btnAbout.TabIndex = 2;
-            btnAbout.Text = "About";
-            btnAbout.UseVisualStyleBackColor = true;
-            btnAbout.Click += btnAbout_Click;
             // 
             // FrmMain
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1182, 1153);
+            ClientSize = new Size(1034, 865);
             Controls.Add(pnlMain);
             Controls.Add(panel1);
+            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DevGearBox";
+            Load += FrmMain_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -102,7 +110,7 @@
         private Panel panel1;
         private Panel pnlMain;
         private Button btnJSONFormatter;
-        private Button button1;
+        private Button btnJSONtoYAML;
         private Button btnAbout;
     }
 }
