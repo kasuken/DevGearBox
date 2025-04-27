@@ -34,5 +34,11 @@ namespace DevGearBox.Win
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(new JsonToYAMLCtl());
         }
+
+        private void btnBase64String_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(new Base64StringEncodeDecodeCtl());
+        }
     }
 }
