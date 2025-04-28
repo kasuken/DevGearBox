@@ -57,5 +57,15 @@ namespace DevGearBox.Services
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
+
+        public string UrlEncode(string input)
+        {
+            return System.Net.WebUtility.UrlEncode(input);
+        }
+
+        public string UrlDecode(string input)
+        {
+            return System.Net.WebUtility.UrlDecode(input);
+        }
     }
 }
