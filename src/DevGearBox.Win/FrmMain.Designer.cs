@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnBase64String = new Button();
             btnAbout = new Button();
             btnJSONtoYAML = new Button();
             btnJSONFormatter = new Button();
             pnlMain = new Panel();
-            btnBase64String = new Button();
+            btnUrlEncodeDecode = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnUrlEncodeDecode);
             panel1.Controls.Add(btnBase64String);
             panel1.Controls.Add(btnAbout);
             panel1.Controls.Add(btnJSONtoYAML);
@@ -48,6 +50,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(187, 847);
             panel1.TabIndex = 0;
+            // 
+            // btnBase64String
+            // 
+            btnBase64String.Font = new Font("Microsoft Sans Serif", 8.25F);
+            btnBase64String.Location = new Point(10, 93);
+            btnBase64String.Margin = new Padding(3, 2, 3, 2);
+            btnBase64String.Name = "btnBase64String";
+            btnBase64String.Size = new Size(161, 35);
+            btnBase64String.TabIndex = 3;
+            btnBase64String.Text = "Base64 String Encode/Decode";
+            btnBase64String.UseVisualStyleBackColor = true;
+            btnBase64String.Click += btnBase64String_Click;
             // 
             // btnAbout
             // 
@@ -62,6 +76,7 @@
             // 
             // btnJSONtoYAML
             // 
+            btnJSONtoYAML.Font = new Font("Microsoft Sans Serif", 8.25F);
             btnJSONtoYAML.Location = new Point(10, 54);
             btnJSONtoYAML.Margin = new Padding(3, 2, 3, 2);
             btnJSONtoYAML.Name = "btnJSONtoYAML";
@@ -73,6 +88,7 @@
             // 
             // btnJSONFormatter
             // 
+            btnJSONFormatter.Font = new Font("Microsoft Sans Serif", 8.25F);
             btnJSONFormatter.Location = new Point(10, 14);
             btnJSONFormatter.Margin = new Padding(3, 2, 3, 2);
             btnJSONFormatter.Name = "btnJSONFormatter";
@@ -90,17 +106,17 @@
             pnlMain.Size = new Size(821, 847);
             pnlMain.TabIndex = 1;
             // 
-            // btnBase64String
+            // btnUrlEncodeDecode
             // 
-            btnBase64String.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnBase64String.Location = new Point(10, 93);
-            btnBase64String.Margin = new Padding(3, 2, 3, 2);
-            btnBase64String.Name = "btnBase64String";
-            btnBase64String.Size = new Size(161, 35);
-            btnBase64String.TabIndex = 3;
-            btnBase64String.Text = "Base64 String Encode/Decode";
-            btnBase64String.UseVisualStyleBackColor = true;
-            btnBase64String.Click += btnBase64String_Click;
+            btnUrlEncodeDecode.Font = new Font("Microsoft Sans Serif", 8.25F);
+            btnUrlEncodeDecode.Location = new Point(10, 132);
+            btnUrlEncodeDecode.Margin = new Padding(3, 2, 3, 2);
+            btnUrlEncodeDecode.Name = "btnUrlEncodeDecode";
+            btnUrlEncodeDecode.Size = new Size(161, 35);
+            btnUrlEncodeDecode.TabIndex = 4;
+            btnUrlEncodeDecode.Text = "URL Encode/Decode";
+            btnUrlEncodeDecode.UseVisualStyleBackColor = true;
+            btnUrlEncodeDecode.Click += btnUrlEncodeDecode_Click;
             // 
             // FrmMain
             // 
@@ -127,5 +143,6 @@
         private Button btnJSONtoYAML;
         private Button btnAbout;
         private Button btnBase64String;
+        private Button btnUrlEncodeDecode;
     }
 }

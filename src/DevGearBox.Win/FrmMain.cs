@@ -40,5 +40,11 @@ namespace DevGearBox.Win
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(new Base64StringEncodeDecodeCtl());
         }
+
+        private void btnUrlEncodeDecode_Click(object sender, EventArgs e)
+        {
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(new UrlEncodeDecodeCtl());
+        }
     }
 }

@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\UrlEncodeDecodeCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\Base64StringEncodeDecodeCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
