@@ -6,6 +6,10 @@
 
 All offline. No data leaves your machine.
 
+<p align="center">
+<img width="2496" height="1613" alt="image" src="https://github.com/user-attachments/assets/ad9709dd-cfc4-449e-a5f8-510254fe3248" />
+</p>
+
 ## ✨ Features
 
 - 🧹 Format JSON, XML, and other data types
