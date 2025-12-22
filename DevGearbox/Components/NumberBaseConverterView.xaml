@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid Margin="20">
@@ -13,23 +14,33 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
             <TextBlock Text="Number Base Converter" Style="{StaticResource HeaderStyle}"/>
             <TextBlock Text="Convert numbers between Binary, Octal, Decimal, and Hexadecimal - real-time conversion" 
-                       Foreground="#9CDCFE" FontSize="12"/>
+                       FontSize="12" Opacity="0.8"/>
         </StackPanel>
-        <Border Grid.Row="1" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="1" 
-                CornerRadius="3" Padding="10,8" Margin="0,0,0,15">
-            <TextBlock Name="StatusText" Text="Ready to convert numbers between bases" 
-                       Foreground="#9CDCFE" FontSize="12"/>
-        </Border>
+        
+        <!-- Status InfoBar -->
+        <ui:InfoBar Grid.Row="1" 
+                    Name="StatusInfoBar"
+                    Title="Ready to convert numbers between bases" 
+                    IsOpen="True"
+                    IsClosable="False"
+                    Severity="Informational"
+                    Margin="0,0,0,15"/>
+        
+        <!-- Action Buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Content="Clear All" Click="ClearAll_Click" 
-                    Padding="15,10" FontSize="13" Background="#5A5A5A"/>
+            <ui:Button Content="Clear All" Click="ClearAll_Click" 
+                       Icon="{ui:SymbolIcon Delete24}"
+                       Appearance="Secondary"/>
         </StackPanel>
+        
+        <!-- Number Base Fields -->
         <StackPanel Grid.Row="3">
-            <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
-                    CornerRadius="4" Padding="12" Margin="0,0,0,10">
+            <ui:Card Padding="12" Margin="0,0,0,10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -37,17 +48,15 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" 
                                Text="Base 2 - Binary" 
-                               Foreground="#569CD6" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Name="BinaryInput" Grid.Row="1"
+                               FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ui:TextBox Name="BinaryInput" Grid.Row="1"
                              FontFamily="Consolas" FontSize="14"
-                             Background="#1E1E1E" Foreground="#4EC9B0"
-                             BorderBrush="#3E3E42" Padding="10"
                              TextChanged="BinaryInput_TextChanged"
                              ToolTip="Enter binary number (e.g., 1010)"/>
                 </Grid>
-            </Border>
-            <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
-                    CornerRadius="4" Padding="12" Margin="0,0,0,10">
+            </ui:Card>
+            
+            <ui:Card Padding="12" Margin="0,0,0,10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -55,17 +64,15 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" 
                                Text="Base 8 - Octal" 
-                               Foreground="#569CD6" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Name="OctalInput" Grid.Row="1"
+                               FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ui:TextBox Name="OctalInput" Grid.Row="1"
                              FontFamily="Consolas" FontSize="14"
-                             Background="#1E1E1E" Foreground="#4EC9B0"
-                             BorderBrush="#3E3E42" Padding="10"
                              TextChanged="OctalInput_TextChanged"
                              ToolTip="Enter octal number (e.g., 12)"/>
                 </Grid>
-            </Border>
-            <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
-                    CornerRadius="4" Padding="12" Margin="0,0,0,10">
+            </ui:Card>
+            
+            <ui:Card Padding="12" Margin="0,0,0,10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -73,17 +80,15 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" 
                                Text="Base 10 - Decimal" 
-                               Foreground="#569CD6" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Name="DecimalInput" Grid.Row="1"
+                               FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ui:TextBox Name="DecimalInput" Grid.Row="1"
                              FontFamily="Consolas" FontSize="14"
-                             Background="#1E1E1E" Foreground="#4EC9B0"
-                             BorderBrush="#3E3E42" Padding="10"
                              TextChanged="DecimalInput_TextChanged"
                              ToolTip="Enter decimal number (e.g., 10)"/>
                 </Grid>
-            </Border>
-            <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
-                    CornerRadius="4" Padding="12" Margin="0,0,0,10">
+            </ui:Card>
+            
+            <ui:Card Padding="12" Margin="0,0,0,10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -91,22 +96,21 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" 
                                Text="Base 16 - Hexadecimal" 
-                               Foreground="#569CD6" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                    <TextBox Name="HexInput" Grid.Row="1"
+                               FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <ui:TextBox Name="HexInput" Grid.Row="1"
                              FontFamily="Consolas" FontSize="14"
-                             Background="#1E1E1E" Foreground="#4EC9B0"
-                             BorderBrush="#3E3E42" Padding="10"
                              TextChanged="HexInput_TextChanged"
                              ToolTip="Enter hexadecimal number (e.g., A or 0xA)"/>
                 </Grid>
-            </Border>
+            </ui:Card>
         </StackPanel>
-        <Border Grid.Row="4" Background="#2D2D30" BorderBrush="#3E3E42" 
-                BorderThickness="1" CornerRadius="3" Padding="10" Margin="0,15,0,0">
-            <TextBlock Foreground="#9CDCFE" FontSize="11" TextWrapping="Wrap">
+        
+        <!-- Footer -->
+        <ui:Card Grid.Row="4" Padding="10" Margin="0,15,0,0">
+            <TextBlock FontSize="11" TextWrapping="Wrap" Opacity="0.8">
                 <Run Text="Tip: Type a number in any base and the other fields update automatically."/><LineBreak/>
                 <Run Text="Examples: Binary: 1010, Octal: 12, Decimal: 10, Hex: A (all represent 10 in decimal)"/>
             </TextBlock>
-        </Border>
+        </ui:Card>
     </Grid>
 </UserControl>

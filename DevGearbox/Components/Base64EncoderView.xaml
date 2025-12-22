@@ -2,20 +2,29 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
-            <TextBlock Text="Base64 Encoder/Decoder" Style="{StaticResource HeaderStyle}"/>
-            <Label Content="Input:"/>
-            <TextBox Name="Base64Input" Height="100" TextChanged="Base64Input_TextChanged"/>
-            <StackPanel Orientation="Horizontal" Margin="0,10">
-                <Button Content="Encode to Base64" Click="EncodeBase64_Click" Margin="0,0,10,0"/>
-                <Button Content="Decode from Base64" Click="DecodeBase64_Click"/>
+        <ui:Card Padding="20" Margin="20">
+            <StackPanel>
+                <TextBlock Text="Base64 Encoder/Decoder" Style="{StaticResource HeaderStyle}"/>
+                <Label Content="Input:"/>
+                <ui:TextBox Name="Base64Input" MinHeight="100" TextChanged="Base64Input_TextChanged" 
+                            FontFamily="Consolas" TextWrapping="Wrap" AcceptsReturn="True"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <ui:Button Content="Encode to Base64" Click="EncodeBase64_Click" 
+                               Icon="{ui:SymbolIcon ArrowExport24}" 
+                               Appearance="Primary" Margin="0,0,10,0"/>
+                    <ui:Button Content="Decode from Base64" Click="DecodeBase64_Click"
+                               Icon="{ui:SymbolIcon ArrowImport24}" 
+                               Appearance="Primary"/>
+                </StackPanel>
+                <Label Content="Output:"/>
+                <ui:TextBox Name="Base64Output" MinHeight="100" IsReadOnly="True" 
+                            FontFamily="Consolas" TextWrapping="Wrap" AcceptsReturn="True"/>
             </StackPanel>
-            <Label Content="Output:"/>
-            <TextBox Name="Base64Output" Height="100" IsReadOnly="True"/>
-        </StackPanel>
+        </ui:Card>
     </ScrollViewer>
 </UserControl>
