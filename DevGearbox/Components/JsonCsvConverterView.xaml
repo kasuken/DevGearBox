@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900">
     <Grid Margin="20">
@@ -13,92 +14,103 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
             <TextBlock Text="JSON and CSV Converter" Style="{StaticResource HeaderStyle}"/>
             <TextBlock Text="Convert between JSON and CSV formats in both directions" 
-                       Foreground="#9CDCFE" FontSize="12"/>
+                       FontSize="12" Opacity="0.7"/>
         </StackPanel>
-        <Border Grid.Row="1" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="1" 
-                CornerRadius="3" Padding="10,8" Margin="0,0,0,15">
-            <TextBlock Name="StatusText" Text="Ready to convert between JSON and CSV" 
-                       Foreground="#9CDCFE" FontSize="12"/>
-        </Border>
+        
+        <!-- Status InfoBar -->
+        <ui:InfoBar Grid.Row="1" 
+                    Name="StatusInfoBar"
+                    Title="Ready to convert between JSON and CSV" 
+                    IsOpen="True"
+                    IsClosable="False"
+                    Severity="Informational"
+                    Margin="0,0,0,15"/>
+        
+        <!-- Action Buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Content="JSON to CSV" Click="JsonToCsv_Click" 
-                    Padding="20,10" FontSize="13" FontWeight="SemiBold" Margin="0,0,10,0"
-                    Background="#0E639C"/>
-            <Button Content="CSV to JSON" Click="CsvToJson_Click" 
-                    Padding="20,10" FontSize="13" FontWeight="SemiBold" Margin="0,0,10,0"
-                    Background="#0E639C"/>
-            <Button Content="Swap" Click="SwapInputOutput_Click" 
-                    Padding="15,10" FontSize="13" Margin="0,0,10,0"
-                    Background="#6A5ACD"/>
-            <Button Content="Copy Output" Click="CopyOutput_Click" 
-                    Padding="15,10" FontSize="13" Margin="0,0,10,0"/>
-            <Button Content="Clear All" Click="ClearAll_Click" 
-                    Padding="15,10" FontSize="13" Background="#5A5A5A"/>
+            <ui:Button Content="JSON to CSV" Click="JsonToCsv_Click" 
+                       Icon="{ui:SymbolIcon ArrowExport24}"
+                       Appearance="Primary"
+                       Margin="0,0,10,0"/>
+            <ui:Button Content="CSV to JSON" Click="CsvToJson_Click" 
+                       Icon="{ui:SymbolIcon ArrowImport24}"
+                       Appearance="Primary"
+                       Margin="0,0,10,0"/>
+            <ui:Button Content="Swap" Click="SwapInputOutput_Click" 
+                       Icon="{ui:SymbolIcon ArrowSwap24}"
+                       Margin="0,0,10,0"/>
+            <ui:Button Content="Copy Output" Click="CopyOutput_Click" 
+                       Icon="{ui:SymbolIcon Copy24}"
+                       Margin="0,0,10,0"/>
+            <ui:Button Content="Clear All" Click="ClearAll_Click" 
+                       Icon="{ui:SymbolIcon Delete24}"
+                       Appearance="Secondary"/>
         </StackPanel>
+        
+        <!-- Main Content -->
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Background="#252526" BorderBrush="#3E3E42" 
-                    BorderThickness="1" CornerRadius="4" Padding="10">
+            
+            <!-- Input Card -->
+            <ui:Card Grid.Column="0" Padding="15">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Input JSON or CSV" 
-                               Foreground="#569CD6" FontSize="14" FontWeight="SemiBold" 
+                               FontSize="14" FontWeight="SemiBold" 
                                Margin="0,0,0,10"/>
-                    <TextBox Name="InputText" Grid.Row="1"
-                             TextWrapping="Wrap"
-                             AcceptsReturn="True"
-                             VerticalScrollBarVisibility="Auto"
-                             FontFamily="Consolas"
-                             FontSize="11"
-                             Background="#1E1E1E"
-                             Foreground="White"
-                             BorderBrush="#3E3E42"
-                             Padding="8"/>
+                    <ui:TextBox Name="InputText" Grid.Row="1"
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                VerticalScrollBarVisibility="Auto"
+                                FontFamily="Consolas"
+                                FontSize="11"
+                                MinHeight="300"/>
                 </Grid>
-            </Border>
-            <Border Grid.Column="2" Background="#252526" BorderBrush="#3E3E42" 
-                    BorderThickness="1" CornerRadius="4" Padding="10">
+            </ui:Card>
+            
+            <!-- Output Card -->
+            <ui:Card Grid.Column="2" Padding="15">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Output CSV or JSON" 
-                               Foreground="#569CD6" FontSize="14" FontWeight="SemiBold" 
+                               FontSize="14" FontWeight="SemiBold" 
                                Margin="0,0,0,10"/>
-                    <TextBox Name="OutputText" Grid.Row="1"
-                             IsReadOnly="True"
-                             TextWrapping="Wrap"
-                             AcceptsReturn="True"
-                             VerticalScrollBarVisibility="Auto"
-                             FontFamily="Consolas"
-                             FontSize="11"
-                             Background="#1E1E1E"
-                             Foreground="#4EC9B0"
-                             BorderBrush="#3E3E42"
-                             Padding="8"/>
+                    <ui:TextBox Name="OutputText" Grid.Row="1"
+                                IsReadOnly="True"
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                VerticalScrollBarVisibility="Auto"
+                                FontFamily="Consolas"
+                                FontSize="11"
+                                MinHeight="300"/>
                 </Grid>
-            </Border>
+            </ui:Card>
         </Grid>
-        <Border Grid.Row="4" Background="#2D2D30" BorderBrush="#3E3E42" 
-                BorderThickness="1" CornerRadius="3" Padding="15" Margin="0,15,0,0">
+        
+        <!-- Examples Card -->
+        <ui:Card Grid.Row="4" Padding="15" Margin="0,15,0,0">
             <StackPanel>
-                <TextBlock Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5">
+                <TextBlock FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5">
                     Examples:
                 </TextBlock>
-                <TextBlock Foreground="#9CDCFE" FontSize="11" TextWrapping="Wrap"
+                <TextBlock FontSize="11" TextWrapping="Wrap" Opacity="0.8"
                            Text="JSON to CSV: Paste JSON array, click JSON to CSV. CSV to JSON: Paste CSV with headers, click CSV to JSON. Use Swap to convert back."/>
             </StackPanel>
-        </Border>
+        </ui:Card>
     </Grid>
 </UserControl>

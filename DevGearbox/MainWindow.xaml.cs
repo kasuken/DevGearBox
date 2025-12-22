@@ -1,13 +1,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using DevGearbox.Services;
+using Wpf.Ui.Controls;
 
 namespace DevGearbox;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : FluentWindow
 {
     public MainWindow()
     {
