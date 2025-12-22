@@ -2,27 +2,36 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
-            <TextBlock Text="Hash Generator" Style="{StaticResource HeaderStyle}"/>
-            <TextBlock Text="Generate cryptographic hashes from text" Foreground="#9CDCFE" Margin="0,0,0,15"/>
-            <Label Content="Input Text:"/>
-            <TextBox Name="HashInput" Height="100"/>
-            <Label Content="Hash Algorithms:" Margin="0,15,0,5"/>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Button Content="MD5" Click="GenerateMD5_Click" Margin="0,0,10,0"/>
-                <Button Content="SHA-1" Click="GenerateSHA1_Click" Margin="0,0,10,0"/>
-                <Button Content="SHA-256" Click="GenerateSHA256_Click" Margin="0,0,10,0"/>
-                <Button Content="SHA-512" Click="GenerateSHA512_Click"/>
+        <ui:Card Padding="20" Margin="20">
+            <StackPanel>
+                <TextBlock Text="Hash Generator" Style="{StaticResource HeaderStyle}"/>
+                <TextBlock Text="Generate cryptographic hashes from text" Opacity="0.8" Margin="0,0,0,15"/>
+                <Label Content="Input Text:"/>
+                <ui:TextBox Name="HashInput" MinHeight="100" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas"/>
+                <Label Content="Hash Algorithms:" Margin="0,15,0,5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <ui:Button Content="MD5" Click="GenerateMD5_Click" 
+                               Icon="{ui:SymbolIcon Password24}" Margin="0,0,10,0"/>
+                    <ui:Button Content="SHA-1" Click="GenerateSHA1_Click" 
+                               Icon="{ui:SymbolIcon Password24}" Margin="0,0,10,0"/>
+                    <ui:Button Content="SHA-256" Click="GenerateSHA256_Click" 
+                               Icon="{ui:SymbolIcon Password24}" Appearance="Primary" Margin="0,0,10,0"/>
+                    <ui:Button Content="SHA-512" Click="GenerateSHA512_Click"
+                               Icon="{ui:SymbolIcon Password24}" Appearance="Primary"/>
+                </StackPanel>
+                <Label Content="Hash Output:"/>
+                <ui:TextBox Name="HashOutput" MinHeight="100" IsReadOnly="True" FontFamily="Consolas" TextWrapping="Wrap"/>
+                <ui:InfoBar Margin="0,10,0,0" 
+                            Title="⚠ Note: MD5 and SHA-1 are cryptographically broken and should not be used for security purposes."
+                            Severity="Warning" 
+                            IsOpen="True" 
+                            IsClosable="False"/>
             </StackPanel>
-            <Label Content="Hash Output:"/>
-            <TextBox Name="HashOutput" Height="100" IsReadOnly="True"/>
-            <TextBlock Margin="0,10,0,0" Foreground="#CE9178" FontSize="11">
-                <Run Text="⚠ Note: MD5 and SHA-1 are cryptographically broken and should not be used for security purposes."/>
-            </TextBlock>
-        </StackPanel>
+        </ui:Card>
     </ScrollViewer>
 </UserControl>
