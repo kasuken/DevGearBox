@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="DevGearbox.Components.FormattersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="JSON Formatter" Style="{StaticResource HeaderStyle}"/>
+            <Label Content="Input JSON:"/>
+            <TextBox Name="JsonInput" Height="200"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Button Content="Format (Pretty)" Click="FormatJson_Click" Margin="0,0,10,0"/>
+                <Button Content="Minify" Click="MinifyJson_Click"/>
+            </StackPanel>
+            <Label Content="Output:"/>
+            <TextBox Name="JsonOutput" Height="200" IsReadOnly="True"/>
+            <Separator Background="#3E3E42" Margin="0,20"/>
+            <TextBlock Text="XML Formatter" Style="{StaticResource HeaderStyle}"/>
+            <Label Content="Input XML:"/>
+            <TextBox Name="XmlInput" Height="200"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Button Content="Format (Pretty)" Click="FormatXml_Click" Margin="0,0,10,0"/>
+                <Button Content="Minify" Click="MinifyXml_Click"/>
+            </StackPanel>
+            <Label Content="Output:"/>
+            <TextBox Name="XmlOutput" Height="200" IsReadOnly="True"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

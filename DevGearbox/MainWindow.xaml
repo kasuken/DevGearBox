@@ -1,0 +1,34 @@
+﻿<Window x:Class="DevGearbox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="DevGearbox - Your Offline Developer Swiss Army Knife" 
+        Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E1E">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="0,0,0,1" Padding="20,15">
+            <StackPanel>
+                <TextBlock Text="🛠️ DevGearbox" FontSize="24" FontWeight="Bold" Foreground="#569CD6"/>
+                <TextBlock Text="Your personal offline Swiss Army knife for developers" 
+                          FontSize="12" Foreground="#9CDCFE" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+        <!-- Main Content - TabControl with dynamic items -->
+        <TabControl Grid.Row="1" Margin="10" Name="MainTabControl" 
+                    SelectionChanged="MainTabControl_SelectionChanged"/>
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="0,1,0,0" Padding="20,10">
+            <TextBlock Text="🔒 All operations are performed locally. No data leaves your machine." 
+                      Foreground="#9CDCFE" FontSize="11" HorizontalAlignment="Center"/>
+        </Border>
+    </Grid>
+</Window>

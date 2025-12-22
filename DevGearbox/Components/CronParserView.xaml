@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="DevGearbox.Components.CronParserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="900">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                <TextBlock Text="Cron Job Parser" Style="{StaticResource HeaderStyle}"/>
+                <TextBlock Text="Parse and understand CRON expressions with detailed breakdown" 
+                           Foreground="#9CDCFE" FontSize="12"/>
+            </StackPanel>
+            <Border Grid.Row="1" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="1" 
+                    CornerRadius="3" Padding="10,8" Margin="0,0,0,15">
+                <TextBlock Name="StatusText" Text="Enter a CRON expression to parse" 
+                           Foreground="#9CDCFE" FontSize="12"/>
+            </Border>
+            <Border Grid.Row="2" Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                    CornerRadius="4" Padding="10" Margin="0,0,0,15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="CRON Expression" 
+                               Foreground="#569CD6" FontSize="13" FontWeight="SemiBold" 
+                               Margin="0,0,0,8"/>
+                    <TextBox Name="CronInput" Grid.Row="1"
+                             FontFamily="Consolas" FontSize="14"
+                             Background="#1E1E1E" Foreground="White"
+                             BorderBrush="#3E3E42" Padding="10"
+                             TextChanged="CronInput_TextChanged"
+                             ToolTip="Enter CRON expression (e.g., 0 0 * * *)"/>
+                </Grid>
+            </Border>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,15">
+                <Button Content="Parse" Click="ParseButton_Click" 
+                        Padding="20,10" FontSize="13" FontWeight="SemiBold" Margin="0,0,10,0"
+                        Background="#0E639C"/>
+                <Button Content="Clear All" Click="ClearAll_Click" 
+                        Padding="15,10" FontSize="13" Background="#5A5A5A" Margin="0,0,20,0"/>
+                <TextBlock Text="Examples:" Foreground="#9CDCFE" FontSize="12" 
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <Button Content="Daily" Click="UseExample1_Click" 
+                        Padding="8,6" FontSize="11" Margin="0,0,5,0"/>
+                <Button Content="Every 15 min" Click="UseExample2_Click" 
+                        Padding="8,6" FontSize="11" Margin="0,0,5,0"/>
+                <Button Content="Weekdays 9AM" Click="UseExample3_Click" 
+                        Padding="8,6" FontSize="11" Margin="0,0,5,0"/>
+                <Button Content="Monthly" Click="UseExample4_Click" 
+                        Padding="8,6" FontSize="11"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="0,0,0,15">
+                <TextBlock Text="CRON Fields" Foreground="#569CD6" 
+                           FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="15" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                            <Border Background="#1E1E1E" BorderBrush="#3E3E42" BorderThickness="1" 
+                                    CornerRadius="3" Padding="10" Margin="0,0,0,10">
+                                <StackPanel>
+                                    <TextBlock Text="Minute (0-59)" Foreground="#9CDCFE" FontSize="11" Margin="0,0,0,5"/>
+                                    <TextBox Name="MinuteText" IsReadOnly="True" 
+                                             FontFamily="Consolas" FontSize="13" FontWeight="Bold"
+                                             Background="#252526" Foreground="#4EC9B0"
+                                             BorderThickness="0" Padding="5" Margin="0,0,0,5"/>
+                                    <TextBlock Name="MinuteExplain" Foreground="#CE9178" 
+                                               FontSize="10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#1E1E1E" BorderBrush="#3E3E42" BorderThickness="1" 
+                                    CornerRadius="3" Padding="10" Margin="0,0,0,10">
+                                <StackPanel>
+                                    <TextBlock Text="Hour (0-23)" Foreground="#9CDCFE" FontSize="11" Margin="0,0,0,5"/>
+                                    <TextBox Name="HourText" IsReadOnly="True" 
+                                             FontFamily="Consolas" FontSize="13" FontWeight="Bold"
+                                             Background="#252526" Foreground="#4EC9B0"
+                                             BorderThickness="0" Padding="5" Margin="0,0,0,5"/>
+                                    <TextBlock Name="HourExplain" Foreground="#CE9178" 
+                                               FontSize="10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#1E1E1E" BorderBrush="#3E3E42" BorderThickness="1" 
+                                    CornerRadius="3" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="Day of Month (1-31)" Foreground="#9CDCFE" FontSize="11" Margin="0,0,0,5"/>
+                                    <TextBox Name="DayOfMonthText" IsReadOnly="True" 
+                                             FontFamily="Consolas" FontSize="13" FontWeight="Bold"
+                                             Background="#252526" Foreground="#4EC9B0"
+                                             BorderThickness="0" Padding="5" Margin="0,0,0,5"/>
+                                    <TextBlock Name="DayOfMonthExplain" Foreground="#CE9178" 
+                                               FontSize="10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <Border Background="#1E1E1E" BorderBrush="#3E3E42" BorderThickness="1" 
+                                    CornerRadius="3" Padding="10" Margin="0,0,0,10">
+                                <StackPanel>
+                                    <TextBlock Text="Month (1-12)" Foreground="#9CDCFE" FontSize="11" Margin="0,0,0,5"/>
+                                    <TextBox Name="MonthText" IsReadOnly="True" 
+                                             FontFamily="Consolas" FontSize="13" FontWeight="Bold"
+                                             Background="#252526" Foreground="#4EC9B0"
+                                             BorderThickness="0" Padding="5" Margin="0,0,0,5"/>
+                                    <TextBlock Name="MonthExplain" Foreground="#CE9178" 
+                                               FontSize="10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#1E1E1E" BorderBrush="#3E3E42" BorderThickness="1" 
+                                    CornerRadius="3" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="Day of Week (0-6, Sunday=0)" Foreground="#9CDCFE" FontSize="11" Margin="0,0,0,5"/>
+                                    <TextBox Name="DayOfWeekText" IsReadOnly="True" 
+                                             FontFamily="Consolas" FontSize="13" FontWeight="Bold"
+                                             Background="#252526" Foreground="#4EC9B0"
+                                             BorderThickness="0" Padding="5" Margin="0,0,0,5"/>
+                                    <TextBlock Name="DayOfWeekExplain" Foreground="#CE9178" 
+                                               FontSize="10" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Margin="0,0,0,15">
+                <TextBlock Text="Human-Readable Description" Foreground="#569CD6" 
+                           FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="15">
+                    <TextBlock Name="DescriptionText" 
+                               FontSize="13" Foreground="#D4D4D4" TextWrapping="Wrap"
+                               FontStyle="Italic"/>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="6">
+                <TextBlock Text="Next Run Times (Estimated)" Foreground="#569CD6" 
+                           FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="15">
+                    <TextBox Name="NextRunsText" 
+                             IsReadOnly="True"
+                             FontFamily="Consolas" FontSize="11"
+                             Background="#1E1E1E" Foreground="#DCDCAA"
+                             BorderThickness="0"
+                             TextWrapping="Wrap"
+                             MinHeight="100"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

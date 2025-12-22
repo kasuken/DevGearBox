@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="DevGearbox.Components.RegexTesterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="Regular Expression Tester" Style="{StaticResource HeaderStyle}"/>
+            <TextBlock Text="Test regex patterns and see matches in real-time" Foreground="#9CDCFE" Margin="0,0,0,15"/>
+            
+            <!-- RegEx Pattern Input -->
+            <Label Content="Regular Expression Pattern:"/>
+            <TextBox Name="RegexInput" Height="30" TextChanged="RegexInput_TextChanged"
+                     ToolTip="Enter your regex pattern (e.g., \d+, [A-Z]\w+, etc.)"/>
+            
+            <!-- Test Text Input -->
+            <Label Content="Test Text:" Margin="0,15,0,3"/>
+            <TextBox Name="TestInput" Height="150" TextChanged="TestInput_TextChanged"
+                     ToolTip="Enter text to test against the regex pattern"/>
+            
+            <!-- Test Button -->
+            <Button Content="Test RegEx" Click="TestRegex_Click" Margin="0,10" HorizontalAlignment="Left"
+                    ToolTip="Click to manually test (auto-tests on input change)"/>
+            
+            <!-- Match Count -->
+            <TextBlock Name="MatchCount" Text="Matches: 0" Foreground="#4EC9B0" FontSize="14" 
+                       FontWeight="Bold" Margin="0,10,0,5"/>
+            
+            <!-- Results Output -->
+            <Label Content="Match Results:"/>
+            <TextBox Name="ResultOutput" Height="200" IsReadOnly="True"
+                     Text="Enter a regex pattern and test text to see results."/>
+
+            <Separator Background="#3E3E42" Margin="0,20"/>
+
+            <!-- Replace Section -->
+            <TextBlock Text="Replace with RegEx" Style="{StaticResource HeaderStyle}"/>
+            
+            <Label Content="Replacement Text:"/>
+            <TextBox Name="ReplacementInput" Height="30"
+                     ToolTip="Enter replacement text (use $1, $2 for groups)"/>
+            
+            <Button Content="Replace" Click="ReplaceText_Click" Margin="0,10" HorizontalAlignment="Left"/>
+            
+            <Label Content="Replacement Result:"/>
+            <TextBox Name="ReplaceOutput" Height="120" IsReadOnly="True"/>
+
+            <!-- Quick Reference -->
+            <Separator Background="#3E3E42" Margin="0,20"/>
+            <TextBlock Text="Quick Reference" Foreground="#569CD6" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,10"/>
+            <TextBlock Foreground="#9CDCFE" FontSize="11" TextWrapping="Wrap">
+                <Run Text="Common Patterns:"/><LineBreak/>
+                <Run Text="  \d - Digit (0-9)"/><LineBreak/>
+                <Run Text="  \w - Word character (a-z, A-Z, 0-9, _)"/><LineBreak/>
+                <Run Text="  \s - Whitespace"/><LineBreak/>
+                <Run Text="  . - Any character"/><LineBreak/>
+                <Run Text="  + - One or more"/><LineBreak/>
+                <Run Text="  * - Zero or more"/><LineBreak/>
+                <Run Text="  ? - Zero or one"/><LineBreak/>
+                <Run Text="  [abc] - Any of a, b, or c"/><LineBreak/>
+                <Run Text="  [^abc] - Not a, b, or c"/><LineBreak/>
+                <Run Text="  (group) - Capture group"/><LineBreak/>
+                <Run Text="  ^ - Start of string"/><LineBreak/>
+                <Run Text="  $ - End of string"/>
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
+

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="DevGearbox.Components.TimestampConverterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="Unix Timestamp Converter" Style="{StaticResource HeaderStyle}"/>
+            <Label Content="Unix Timestamp (seconds or milliseconds):"/>
+            <TextBox Name="UnixTimestampInput" Height="30"/>
+            <Button Content="Convert to DateTime" Click="UnixToDateTime_Click" 
+                    Margin="0,10" HorizontalAlignment="Left"/>
+            <Label Content="Result:"/>
+            <TextBox Name="UnixToDateTimeOutput" Height="60" IsReadOnly="True"/>
+            <Separator Background="#3E3E42" Margin="0,20"/>
+            <TextBlock Text="DateTime to Unix Timestamp" Style="{StaticResource HeaderStyle}"/>
+            <Label Content="Select Date and Time:"/>
+            <DatePicker Name="DatePickerInput" Margin="0,5" Background="#252526" 
+                       Foreground="White" BorderBrush="#3E3E42"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Label Content="Time (HH:mm:ss):" Width="120"/>
+                <TextBox Name="TimeInput" Width="100" Text="00:00:00" Height="25"/>
+            </StackPanel>
+            <Button Content="Convert to Unix Timestamp" Click="DateTimeToUnix_Click" 
+                    Margin="0,10" HorizontalAlignment="Left"/>
+            <Label Content="Result:"/>
+            <TextBox Name="DateTimeToUnixOutput" Height="60" IsReadOnly="True"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

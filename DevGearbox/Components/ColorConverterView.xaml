@@ -1,0 +1,228 @@
+﻿<UserControl x:Class="DevGearbox.Components.ColorConverterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="Color Converter" Style="{StaticResource HeaderStyle}"/>
+            <TextBlock Text="Pick a color or enter HEX value to see all format conversions" 
+                       Foreground="#9CDCFE" Margin="0,0,0,15"/>
+
+            <!-- Color Preview -->
+            <Border BorderBrush="#3E3E42" BorderThickness="1" CornerRadius="4" Padding="10" Background="#2D2D30" Margin="0,0,0,15">
+                <StackPanel>
+                    <Label Content="Color Preview:"/>
+                    <Rectangle Name="ColorPreview" Height="80" Fill="Black" 
+                               Stroke="#3E3E42" StrokeThickness="1" RadiusX="4" RadiusY="4"/>
+                </StackPanel>
+            </Border>
+
+            <!-- HEX Input -->
+            <Label Content="HEX Color Input:"/>
+            <TextBox Name="HexInput" Text="#000000" Height="30" TextChanged="HexInput_TextChanged"
+                     ToolTip="Enter HEX color (e.g., #FF5733, #F57, #AAFF5733)"/>
+
+            <Separator Background="#3E3E42" Margin="0,15"/>
+
+            <!-- RGB Sliders (Color Picker) -->
+            <TextBlock Text="Color Picker (RGB + Alpha)" Foreground="#569CD6" FontSize="14" 
+                       FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+            <!-- Red Slider -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Red:" Grid.Column="0"/>
+                <Slider Name="RedSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="0" 
+                        ValueChanged="RedSlider_ValueChanged" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Name="RedValue" Grid.Column="2" Text="0" Foreground="White" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!-- Green Slider -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Green:" Grid.Column="0"/>
+                <Slider Name="GreenSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="0" 
+                        ValueChanged="GreenSlider_ValueChanged" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Name="GreenValue" Grid.Column="2" Text="0" Foreground="White" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!-- Blue Slider -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Blue:" Grid.Column="0"/>
+                <Slider Name="BlueSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="0" 
+                        ValueChanged="BlueSlider_ValueChanged" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Name="BlueValue" Grid.Column="2" Text="0" Foreground="White" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!-- Alpha Slider -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Alpha:" Grid.Column="0"/>
+                <Slider Name="AlphaSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="255" 
+                        ValueChanged="AlphaSlider_ValueChanged" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                <TextBlock Name="AlphaValue" Grid.Column="2" Text="255" Foreground="White" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!-- Preset Colors -->
+            <Label Content="Quick Presets:" Margin="0,10,0,5"/>
+            <WrapPanel Margin="0,5,0,15">
+                <Button Content="Red" Tag="Red" Click="PresetColor_Click" Margin="0,0,5,5" Background="#CC0000"/>
+                <Button Content="Green" Tag="Green" Click="PresetColor_Click" Margin="0,0,5,5" Background="#00CC00"/>
+                <Button Content="Blue" Tag="Blue" Click="PresetColor_Click" Margin="0,0,5,5" Background="#0000CC"/>
+                <Button Content="Yellow" Tag="Yellow" Click="PresetColor_Click" Margin="0,0,5,5" Background="#CCCC00"/>
+                <Button Content="Cyan" Tag="Cyan" Click="PresetColor_Click" Margin="0,0,5,5" Background="#00CCCC"/>
+                <Button Content="Magenta" Tag="Magenta" Click="PresetColor_Click" Margin="0,0,5,5" Background="#CC00CC"/>
+                <Button Content="Orange" Tag="Orange" Click="PresetColor_Click" Margin="0,0,5,5" Background="#FF8800"/>
+                <Button Content="Purple" Tag="Purple" Click="PresetColor_Click" Margin="0,0,5,5" Background="#8800CC"/>
+                <Button Content="Pink" Tag="Pink" Click="PresetColor_Click" Margin="0,0,5,5" Background="#FF69B4"/>
+                <Button Content="White" Tag="White" Click="PresetColor_Click" Margin="0,0,5,5" Background="#FFFFFF" Foreground="Black"/>
+                <Button Content="Gray" Tag="Gray" Click="PresetColor_Click" Margin="0,0,5,5" Background="#808080"/>
+                <Button Content="Black" Tag="Black" Click="PresetColor_Click" Margin="0,0,5,5" Background="#000000"/>
+            </WrapPanel>
+
+            <Separator Background="#3E3E42" Margin="0,10"/>
+
+            <!-- Color Format Outputs -->
+            <TextBlock Text="Color Formats" Foreground="#569CD6" FontSize="14" 
+                       FontWeight="SemiBold" Margin="0,10,0,10"/>
+
+            <!-- HEX -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="HEX:" Grid.Column="0"/>
+                <TextBox Name="HexOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="Hex" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- HEX with Alpha -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="HEX Alpha:" Grid.Column="0"/>
+                <TextBox Name="HexAlphaOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="HexAlpha" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- RGB -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="RGB:" Grid.Column="0"/>
+                <TextBox Name="RgbOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="RGB" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- RGBA -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="RGBA:" Grid.Column="0"/>
+                <TextBox Name="RgbaOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="RGBA" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- HSL -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="HSL:" Grid.Column="0"/>
+                <TextBox Name="HslOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="HSL" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- HSLA -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="HSLA:" Grid.Column="0"/>
+                <TextBox Name="HslaOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="HSLA" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- HSB -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="HSB:" Grid.Column="0"/>
+                <TextBox Name="HsbOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="HSB" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- HWB -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="HWB:" Grid.Column="0"/>
+                <TextBox Name="HwbOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="HWB" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- CMYK -->
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="CMYK:" Grid.Column="0"/>
+                <TextBox Name="CmykOutput" Grid.Column="1" IsReadOnly="True" Height="30"/>
+                <Button Content="Copy" Grid.Column="2" Tag="CMYK" Click="CopyToClipboard_Click" Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- Info -->
+            <TextBlock Margin="0,15,0,0" Foreground="#9CDCFE" FontSize="11" TextWrapping="Wrap">
+                <Run Text="💡 Tip: Use the sliders to pick a color, or enter a HEX value directly. Click 'Copy' to copy any format to clipboard."/>
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
+

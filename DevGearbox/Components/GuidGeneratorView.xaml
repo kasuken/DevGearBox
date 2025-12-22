@@ -1,0 +1,305 @@
+﻿<UserControl x:Class="DevGearbox.Components.GuidGeneratorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                <TextBlock Text="GUID Generator" Style="{StaticResource HeaderStyle}"/>
+                <TextBlock Text="Generate GUIDs in all C# formats with one click" 
+                           Foreground="#9CDCFE" FontSize="12"/>
+            </StackPanel>
+
+            <!-- Status Bar -->
+            <Border Grid.Row="1" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="1" 
+                    CornerRadius="3" Padding="10,8" Margin="0,0,0,15">
+                <TextBlock Name="StatusText" Text="Ready to generate GUIDs" 
+                           Foreground="#9CDCFE" FontSize="12"/>
+            </Border>
+
+            <!-- Action Buttons -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15">
+                <Button Content="🎲 Generate New GUID" Click="GenerateGuid_Click" 
+                        Padding="20,10" FontSize="14" FontWeight="SemiBold" Margin="0,0,10,0"/>
+                <Button Content="🗑️ Clear All" Click="ClearAll_Click" 
+                        Padding="15,10" Background="#5A5A5A"/>
+            </StackPanel>
+
+            <!-- GUID Formats Grid -->
+            <StackPanel Grid.Row="3">
+                <!-- Format N -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Format N - 32 digits (no hyphens)" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="FormatN_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyFormatN_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Format D -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Format D - Hyphens (default)" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="FormatD_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyFormatD_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Format B -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Format B - Braces {guid}" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="FormatB_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyFormatB_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Format P -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Format P - Parentheses (guid)" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="FormatP_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyFormatP_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Format X -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Format X - Hexadecimal" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="FormatX_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"
+                                 TextWrapping="Wrap"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyFormatX_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Default Format -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Default Format - Same as D" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="DefaultFormat_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyDefault_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Base64 -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Base64 String - URL-safe format" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="Base64_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyBase64_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Uppercase N -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Uppercase N - 32 digits uppercase" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="UpperN_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyUpperN_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+
+                <!-- Uppercase D -->
+                <Border Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                        CornerRadius="4" Padding="12" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Uppercase D - Hyphens uppercase" 
+                                   Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        
+                        <TextBox Name="UpperD_Output" Grid.Row="1" Grid.Column="0"
+                                 IsReadOnly="True" FontFamily="Consolas" FontSize="12"
+                                 Background="#1E1E1E" Foreground="#4EC9B0"
+                                 BorderBrush="#3E3E42" Padding="8" Margin="0,0,10,0"/>
+                        
+                        <Button Grid.Row="1" Grid.Column="1" Content="📋 Copy" 
+                                Click="CopyUpperD_Click" Padding="12,8"
+                                Background="#0E639C" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!-- Footer Info -->
+            <Border Grid.Row="4" Background="#2D2D30" BorderBrush="#3E3E42" 
+                    BorderThickness="1" CornerRadius="3" Padding="10" Margin="0,15,0,0">
+                <TextBlock Foreground="#9CDCFE" FontSize="11" TextWrapping="Wrap"
+                           Text="💡 Tip: Click 'Generate New GUID' to create a new GUID in all formats. Each format has its own copy button for easy use."/>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
+

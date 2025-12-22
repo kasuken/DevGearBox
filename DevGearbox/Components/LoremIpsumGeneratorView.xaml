@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="DevGearbox.Components.LoremIpsumGeneratorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,15">
+            <TextBlock Text="Lorem Ipsum Generator" Style="{StaticResource HeaderStyle}"/>
+            <TextBlock Text="Generate placeholder text of different lengths using Bogus" 
+                       Foreground="#9CDCFE" FontSize="12"/>
+        </StackPanel>
+        <Border Grid.Row="1" Background="#2D2D30" BorderBrush="#3E3E42" BorderThickness="1" 
+                CornerRadius="3" Padding="10,8" Margin="0,0,0,15">
+            <TextBlock Name="StatusText" Text="Select a length and click Generate" 
+                       Foreground="#9CDCFE" FontSize="12"/>
+        </Border>
+        <Border Grid.Row="2" Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                CornerRadius="4" Padding="15" Margin="0,0,0,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Length:" 
+                           Foreground="#569CD6" FontSize="13" FontWeight="SemiBold" 
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox Name="LengthComboBox" Grid.Column="1"
+                          SelectedIndex="0"
+                          FontSize="12" Padding="8"
+                          Background="#1E1E1E" Foreground="White"
+                          BorderBrush="#3E3E42"
+                          SelectionChanged="LengthComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Short (1 paragraph)"/>
+                    <ComboBoxItem Content="Medium (3 paragraphs)"/>
+                    <ComboBoxItem Content="Long (5 paragraphs)"/>
+                    <ComboBoxItem Content="Very Long (10 paragraphs)"/>
+                    <ComboBoxItem Content="Custom (specify count)"/>
+                </ComboBox>
+                <StackPanel Name="CustomPanel" Grid.Column="2" Orientation="Horizontal" 
+                            Visibility="Collapsed" Margin="10,0,0,0">
+                    <TextBlock Text="Paragraphs:" Foreground="#9CDCFE" 
+                               VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBox Name="CustomCountText" 
+                             Width="60" Text="1"
+                             FontFamily="Consolas" FontSize="12"
+                             Background="#1E1E1E" Foreground="White"
+                             BorderBrush="#3E3E42" Padding="5"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,15">
+            <Button Content="Generate Lorem Ipsum" Click="Generate_Click" 
+                    Padding="20,10" FontSize="13" FontWeight="SemiBold" Margin="0,0,10,0"
+                    Background="#0E639C"/>
+            <Button Content="Copy to Clipboard" Click="Copy_Click" 
+                    Padding="15,10" FontSize="13" Margin="0,0,10,0"/>
+            <Button Content="Clear" Click="Clear_Click" 
+                    Padding="15,10" FontSize="13" Background="#5A5A5A"/>
+        </StackPanel>
+        <Border Grid.Row="4" Background="#252526" BorderBrush="#3E3E42" BorderThickness="1" 
+                CornerRadius="4" Padding="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Generated Text" 
+                           Foreground="#569CD6" FontSize="14" FontWeight="SemiBold" 
+                           Margin="0,0,0,10"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <TextBox Name="OutputText"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             FontFamily="Georgia"
+                             FontSize="12"
+                             Background="#1E1E1E"
+                             Foreground="#D4D4D4"
+                             BorderThickness="0"
+                             Padding="10"
+                             IsReadOnly="True"/>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        <Border Grid.Row="5" Background="#2D2D30" BorderBrush="#3E3E42" 
+                BorderThickness="1" CornerRadius="3" Padding="10" Margin="0,15,0,0">
+            <StackPanel>
+                <TextBlock Foreground="#569CD6" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5">
+                    About Lorem Ipsum:
+                </TextBlock>
+                <TextBlock Foreground="#9CDCFE" FontSize="11" TextWrapping="Wrap">
+                    <Run Text="Lorem Ipsum is placeholder text used in design and publishing. "/>
+                    <Run Text="Perfect for mockups, wireframes, and testing layouts. "/>
+                    <Run Text="Generated using the Bogus library."/>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
