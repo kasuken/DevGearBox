@@ -6,32 +6,51 @@ namespace DevGearbox.Utils;
 
 public static class FileEncodingDetector
 {
+    private const int SampleReadLength = 8192;
+    private const double Utf16DominantNullRatio = 0.30;
+    private const double Utf16NoiseNullRatio = 0.10;
+
     public static string DetectEncoding(string filePath)
+    {
+        var (message, _) = DetectEncodingWithStatus(filePath);
+        return message;
+    }
+
+    public static (string message, bool isError) DetectEncodingWithStatus(string filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath))
         {
-            return "Please provide a file path.";
+            return ("Please provide a file path.", true);
         }
 
         if (!File.Exists(filePath))
         {
-            return $"File not found: {filePath}";
+            return ($"File not found: {filePath}", true);
         }
 
         try
         {
-            var bytes = File.ReadAllBytes(filePath);
+            var bytes = ReadSample(filePath);
             if (bytes.Length == 0)
             {
-                return "Empty file (no bytes to detect).";
+                return ("File is empty or contains no readable data.", true);
             }
 
-            return DetectEncoding(bytes);
+            return (DetectEncoding(bytes), false);
         }
         catch (Exception ex)
         {
-            return $"Unable to read file: {ex.Message}";
+            return ($"Unable to read file: {ex.Message}", true);
         }
+    }
+
+    private static byte[] ReadSample(string filePath)
+    {
+        using var stream = File.OpenRead(filePath);
+        var length = (int)Math.Min(stream.Length, SampleReadLength);
+        var buffer = new byte[length];
+        var read = stream.Read(buffer, 0, length);
+        return buffer[..read];
     }
 
     public static string DetectEncoding(byte[] bytes)
@@ -98,7 +117,7 @@ public static class FileEncodingDetector
             else
                 return false;
 
-            if (i + additionalBytes >= bytes.Length)
+            if (i + 1 + additionalBytes > bytes.Length)
                 return false;
 
             for (var j = 1; j <= additionalBytes; j++)
@@ -113,9 +132,14 @@ public static class FileEncodingDetector
         return true;
     }
 
+    /// <summary>
+    /// Heuristically detects UTF-16 without BOM by checking for a dominant presence of null bytes
+    /// on either even or odd byte positions (depending on endianness) while allowing some noise
+    /// on the opposite positions. Ratios are tuned to avoid false positives on UTF-8/ASCII data.
+    /// </summary>
     private static bool IsLikelyUtf16(byte[] bytes, bool littleEndian)
     {
-        if (bytes.Length < 2 || bytes.Length % 2 != 0)
+        if (bytes.Length < 2)
             return false;
 
         var zeroOnEven = 0;
@@ -123,11 +147,25 @@ public static class FileEncodingDetector
 
         for (var i = 0; i < bytes.Length; i++)
         {
-            if (i % 2 == 0 && bytes[i] == 0x00) zeroOnEven++;
-            if (i % 2 == 1 && bytes[i] == 0x00) zeroOnOdd++;
+            var isEven = (i & 1) == 0;
+            if (isEven && bytes[i] == 0x00)
+            {
+                zeroOnEven++;
+            }
+            else if (!isEven && bytes[i] == 0x00)
+            {
+                zeroOnOdd++;
+            }
         }
 
-        var threshold = bytes.Length / 10; // allow some noise
-        return littleEndian ? zeroOnOdd > threshold && zeroOnEven == 0 : zeroOnEven > threshold && zeroOnOdd == 0;
+        var pairCount = bytes.Length / 2;
+        if (pairCount == 0)
+            return false;
+        var evenRatio = zeroOnEven / (double)pairCount;
+        var oddRatio = zeroOnOdd / (double)pairCount;
+
+        return littleEndian
+            ? oddRatio > Utf16DominantNullRatio && evenRatio < Utf16NoiseNullRatio
+            : evenRatio > Utf16DominantNullRatio && oddRatio < Utf16NoiseNullRatio;
     }
 }

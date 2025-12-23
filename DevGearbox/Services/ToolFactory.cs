@@ -92,7 +92,7 @@ public class ToolFactory
             new ToolItem(
                 "File Encoding",
                 "📂",
-                "Trascina un file e scopri rapidamente il suo encoding",
+                "Drag a file and quickly discover its encoding",
                 new FileEncodingDetectorView()
             ),
             new ToolItem(

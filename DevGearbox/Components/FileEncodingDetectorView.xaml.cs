@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,12 +9,16 @@ namespace DevGearbox.Components;
 
 public partial class FileEncodingDetectorView : UserControl
 {
-    private readonly SolidColorBrush _defaultBorderBrush = new(Color.FromRgb(0x3E, 0x3E, 0x42));
-    private readonly SolidColorBrush _hoverBorderBrush = new(Color.FromRgb(0x0E, 0x63, 0x9C));
+    private readonly SolidColorBrush _defaultBorderBrush;
+    private readonly SolidColorBrush _hoverBorderBrush;
 
     public FileEncodingDetectorView()
     {
         InitializeComponent();
+        _defaultBorderBrush = TryFindResource("DropBorderBrush") as SolidColorBrush
+                              ?? new SolidColorBrush(Color.FromRgb(0x3E, 0x3E, 0x42));
+        _hoverBorderBrush = TryFindResource("DropHoverBrush") as SolidColorBrush
+                            ?? new SolidColorBrush(Color.FromRgb(0x0E, 0x63, 0x9C));
     }
 
     private void DropArea_DragEnter(object sender, DragEventArgs e)
@@ -28,6 +31,22 @@ public partial class FileEncodingDetectorView : UserControl
         else
         {
             e.Effects = DragDropEffects.None;
+        }
+
+        e.Handled = true;
+    }
+
+    private void DropArea_DragOver(object sender, DragEventArgs e)
+    {
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            e.Effects = DragDropEffects.Copy;
+            DropBorder.BorderBrush = _hoverBorderBrush;
+        }
+        else
+        {
+            e.Effects = DragDropEffects.None;
+            DropBorder.BorderBrush = _defaultBorderBrush;
         }
 
         e.Handled = true;
@@ -46,7 +65,7 @@ public partial class FileEncodingDetectorView : UserControl
 
         if (!e.Data.GetDataPresent(DataFormats.FileDrop))
         {
-            SetStatus("Rilascia un file valido", InfoBarSeverity.Warning);
+            SetStatus("Please drop a valid file", InfoBarSeverity.Warning);
             return;
         }
 
@@ -62,7 +81,7 @@ public partial class FileEncodingDetectorView : UserControl
         {
             CheckFileExists = true,
             Multiselect = false,
-            Title = "Seleziona un file da analizzare"
+            Title = "Select a file to analyze"
         };
 
         if (dialog.ShowDialog() == true)
@@ -74,29 +93,17 @@ public partial class FileEncodingDetectorView : UserControl
     private void ProcessFile(string filePath)
     {
         SelectedFileText.Text = filePath;
-        var detection = FileEncodingDetector.DetectEncoding(filePath);
+        var (detection, isError) = FileEncodingDetector.DetectEncodingWithStatus(filePath);
         DetectedEncodingText.Text = detection;
 
-        if (IsErrorMessage(detection))
+        if (isError)
         {
             SetStatus(detection, InfoBarSeverity.Error);
         }
         else
         {
-            SetStatus($"Encoding rilevato: {detection}", InfoBarSeverity.Success);
+            SetStatus($"Encoding detected: {detection}", InfoBarSeverity.Success);
         }
-    }
-
-    private static bool IsErrorMessage(string message)
-    {
-        if (string.IsNullOrWhiteSpace(message))
-            return true;
-
-        var lowered = message.ToLowerInvariant();
-        return lowered.StartsWith("file not found", StringComparison.Ordinal) ||
-               lowered.StartsWith("unable to read file", StringComparison.Ordinal) ||
-               lowered.StartsWith("please provide", StringComparison.Ordinal) ||
-               lowered.StartsWith("empty file", StringComparison.Ordinal);
     }
 
     private void SetStatus(string message, InfoBarSeverity severity)
