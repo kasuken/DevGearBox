@@ -1,0 +1,22 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+C:\dev\DevGearBox\DevGearbox\Utils\UrlParser.cs(43,59): warning CS8600: Converting null literal or possible null value to non-nullable type. [C:\dev\DevGearBox\DevGearbox\DevGearbox_niv2xs11_wpftmp.csproj]
+C:\dev\DevGearBox\DevGearbox\Utils\UrlParser.cs(43,59): warning CS8600: Converting null literal or possible null value to non-nullable type. [C:\dev\DevGearBox\DevGearbox\DevGearbox.csproj]
+  DevGearbox -> C:\dev\DevGearBox\DevGearbox\bin\Debug\net10.0-windows\DevGearbox.dll
+  DevGearbox.Tests -> C:\dev\DevGearBox\DevGearbox.Tests\bin\Debug\net10.0-windows\DevGearbox.Tests.dll
+
+Build succeeded.
+
+C:\dev\DevGearBox\DevGearbox\Utils\UrlParser.cs(43,59): warning CS8600: Converting null literal or possible null value to non-nullable type. [C:\dev\DevGearBox\DevGearbox\DevGearbox_niv2xs11_wpftmp.csproj]
+C:\dev\DevGearBox\DevGearbox\Utils\UrlParser.cs(43,59): warning CS8600: Converting null literal or possible null value to non-nullable type. [C:\dev\DevGearBox\DevGearbox\DevGearbox.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.29
+Test run for C:\dev\DevGearBox\DevGearbox.Tests\bin\Debug\net10.0-windows\DevGearbox.Tests.dll (.NETCoreApp,Version=v10.0)
+VSTest version 18.0.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    11, Skipped:     0, Total:    11, Duration: 332 ms - DevGearbox.Tests.dll (net10.0)

@@ -90,6 +90,12 @@ public class ToolFactory
                 new UrlParserView()
             ),
             new ToolItem(
+                "File Encoding",
+                "📂",
+                "Drag a file and quickly discover its encoding",
+                new FileEncodingDetectorView()
+            ),
+            new ToolItem(
                 "Cron Parser",
                 "⏲️",
                 "Parse and understand CRON expressions with detailed breakdown",
