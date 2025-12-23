@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,6 +13,7 @@ public partial class FileEncodingDetectorView : UserControl
 {
     private readonly SolidColorBrush _defaultBorderBrush;
     private readonly SolidColorBrush _hoverBorderBrush;
+    private string _lastDetectedEncoding = "";
 
     public FileEncodingDetectorView()
     {
@@ -92,18 +95,128 @@ public partial class FileEncodingDetectorView : UserControl
 
     private void ProcessFile(string filePath)
     {
-        SelectedFileText.Text = filePath;
-        var (detection, isError) = FileEncodingDetector.DetectEncodingWithStatus(filePath);
-        DetectedEncodingText.Text = detection;
+        try
+        {
+            // Update file path
+            SelectedFileText.Text = filePath;
+            
+            // Get file info
+            var fileInfo = new FileInfo(filePath);
+            if (!fileInfo.Exists)
+            {
+                SetStatus("File not found", InfoBarSeverity.Error);
+                ClearResults();
+                return;
+            }
 
-        if (isError)
-        {
-            SetStatus(detection, InfoBarSeverity.Error);
+            // Update file size
+            FileSizeText.Text = FormatFileSize(fileInfo.Length);
+
+            // Detect encoding with detailed info
+            var detailedResult = FileEncodingDetector.DetectEncodingDetailed(filePath);
+            
+            if (detailedResult.IsError)
+            {
+                DetectedEncodingText.Text = "Error";
+                BomStatusText.Text = "—";
+                ConfidenceText.Text = "—";
+                AnalysisText.Text = detailedResult.EncodingName;
+                TechnicalDetailsText.Text = "Unable to analyze file";
+                SetStatus(detailedResult.EncodingName, InfoBarSeverity.Error);
+                CopyEncodingButton.IsEnabled = false;
+                _lastDetectedEncoding = "";
+            }
+            else
+            {
+                // Update main encoding display
+                DetectedEncodingText.Text = detailedResult.EncodingName;
+                _lastDetectedEncoding = detailedResult.EncodingName;
+
+                // Update BOM status
+                BomStatusText.Text = detailedResult.HasBOM ? "✓ Yes" : "✗ No";
+
+                // Update confidence
+                ConfidenceText.Text = detailedResult.Confidence;
+
+                // Update analysis
+                AnalysisText.Text = detailedResult.Analysis;
+
+                // Update technical details
+                TechnicalDetailsText.Text = BuildTechnicalDetails(detailedResult, fileInfo);
+
+                // Update status
+                SetStatus($"Successfully detected: {detailedResult.EncodingName}", InfoBarSeverity.Success);
+                
+                // Enable copy button
+                CopyEncodingButton.IsEnabled = true;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            SetStatus($"Encoding detected: {detection}", InfoBarSeverity.Success);
+            SetStatus($"Error processing file: {ex.Message}", InfoBarSeverity.Error);
+            ClearResults();
         }
+    }
+
+    private void CopyEncoding_Click(object sender, RoutedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(_lastDetectedEncoding))
+        {
+            try
+            {
+                Clipboard.SetText(_lastDetectedEncoding);
+                SetStatus("Encoding copied to clipboard", InfoBarSeverity.Success);
+            }
+            catch (Exception ex)
+            {
+                SetStatus($"Failed to copy: {ex.Message}", InfoBarSeverity.Error);
+            }
+        }
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+        int suffixIndex = 0;
+        double size = bytes;
+
+        while (size >= 1024 && suffixIndex < suffixes.Length - 1)
+        {
+            size /= 1024;
+            suffixIndex++;
+        }
+
+        return $"{size:N2} {suffixes[suffixIndex]} ({bytes:N0} bytes)";
+    }
+
+    private string BuildTechnicalDetails(FileEncodingDetector.EncodingResult result, FileInfo fileInfo)
+    {
+        var details = $"File: {fileInfo.Name}\n";
+        details += $"Path: {fileInfo.FullName}\n";
+        details += $"Size: {fileInfo.Length:N0} bytes\n";
+        details += $"Modified: {fileInfo.LastWriteTime:yyyy-MM-dd HH:mm:ss}\n";
+        details += $"\nEncoding: {result.EncodingName}\n";
+        details += $"BOM: {(result.HasBOM ? "Present" : "Not present")}\n";
+        details += $"Confidence: {result.Confidence}\n";
+        
+        if (!string.IsNullOrEmpty(result.TechnicalNotes))
+        {
+            details += $"\nNotes:\n{result.TechnicalNotes}";
+        }
+
+        return details;
+    }
+
+    private void ClearResults()
+    {
+        DetectedEncodingText.Text = "—";
+        FileSizeText.Text = "—";
+        BomStatusText.Text = "—";
+        ConfidenceText.Text = "—";
+        AnalysisText.Text = "—";
+        TechnicalDetailsText.Text = "No file analyzed yet";
+        CopyEncodingButton.IsEnabled = false;
+        _lastDetectedEncoding = "";
     }
 
     private void SetStatus(string message, InfoBarSeverity severity)

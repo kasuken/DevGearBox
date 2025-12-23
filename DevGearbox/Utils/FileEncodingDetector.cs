@@ -13,6 +13,186 @@ public static class FileEncodingDetector
     private const double BinaryNullThreshold = 0.05;
     private const double BinaryControlCharThreshold = 0.10;
 
+    public class EncodingResult
+    {
+        public string EncodingName { get; set; } = "";
+        public bool HasBOM { get; set; }
+        public string Confidence { get; set; } = "";
+        public string Analysis { get; set; } = "";
+        public string TechnicalNotes { get; set; } = "";
+        public bool IsError { get; set; }
+    }
+
+    public static EncodingResult DetectEncodingDetailed(string filePath)
+    {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            return new EncodingResult
+            {
+                EncodingName = "Please provide a file path.",
+                IsError = true
+            };
+        }
+
+        if (!File.Exists(filePath))
+        {
+            return new EncodingResult
+            {
+                EncodingName = $"File not found: {filePath}",
+                IsError = true
+            };
+        }
+
+        try
+        {
+            var bytes = ReadSample(filePath);
+            if (bytes.Length == 0)
+            {
+                return new EncodingResult
+                {
+                    EncodingName = "Empty file",
+                    IsError = true,
+                    Analysis = "File contains no readable data."
+                };
+            }
+
+            return AnalyzeEncodingDetailed(bytes);
+        }
+        catch (Exception ex)
+        {
+            return new EncodingResult
+            {
+                EncodingName = $"Unable to read file: {ex.Message}",
+                IsError = true
+            };
+        }
+    }
+
+    private static EncodingResult AnalyzeEncodingDetailed(byte[] bytes)
+    {
+        var result = new EncodingResult();
+
+        // 1. Check for BOM signatures first (most reliable)
+        if (bytes.Length >= 4)
+        {
+            if (bytes[0] == 0xFF && bytes[1] == 0xFE && bytes[2] == 0x00 && bytes[3] == 0x00)
+            {
+                result.EncodingName = "UTF-32 LE";
+                result.HasBOM = true;
+                result.Confidence = "Very High";
+                result.Analysis = "BOM detected at file start. This is a 32-bit Unicode encoding (Little Endian).";
+                result.TechnicalNotes = "BOM bytes: FF FE 00 00\nCodepage: 12000";
+                return result;
+            }
+            if (bytes[0] == 0x00 && bytes[1] == 0x00 && bytes[2] == 0xFE && bytes[3] == 0xFF)
+            {
+                result.EncodingName = "UTF-32 BE";
+                result.HasBOM = true;
+                result.Confidence = "Very High";
+                result.Analysis = "BOM detected at file start. This is a 32-bit Unicode encoding (Big Endian).";
+                result.TechnicalNotes = "BOM bytes: 00 00 FE FF\nCodepage: 12001";
+                return result;
+            }
+        }
+
+        if (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
+        {
+            result.EncodingName = "UTF-8";
+            result.HasBOM = true;
+            result.Confidence = "Very High";
+            result.Analysis = "BOM detected at file start. This is the standard Unicode encoding for text files.";
+            result.TechnicalNotes = "BOM bytes: EF BB BF\nCodepage: 65001\nRecommended for cross-platform text files.";
+            return result;
+        }
+
+        if (bytes.Length >= 2)
+        {
+            if (bytes[0] == 0xFF && bytes[1] == 0xFE)
+            {
+                result.EncodingName = "UTF-16 LE";
+                result.HasBOM = true;
+                result.Confidence = "Very High";
+                result.Analysis = "BOM detected at file start. This is a 16-bit Unicode encoding (Little Endian).";
+                result.TechnicalNotes = "BOM bytes: FF FE\nCodepage: 1200\nCommon on Windows systems.";
+                return result;
+            }
+            if (bytes[0] == 0xFE && bytes[1] == 0xFF)
+            {
+                result.EncodingName = "UTF-16 BE";
+                result.HasBOM = true;
+                result.Confidence = "Very High";
+                result.Analysis = "BOM detected at file start. This is a 16-bit Unicode encoding (Big Endian).";
+                result.TechnicalNotes = "BOM bytes: FE FF\nCodepage: 1201\nLess common than Little Endian variant.";
+                return result;
+            }
+        }
+
+        // 2. Check for binary file
+        if (IsLikelyBinary(bytes))
+        {
+            result.EncodingName = "Binary";
+            result.HasBOM = false;
+            result.Confidence = "High";
+            result.Analysis = "File contains binary data (not text). High ratio of null bytes or control characters detected.";
+            result.TechnicalNotes = "This appears to be an executable, image, or other non-text file format.";
+            return result;
+        }
+
+        // 3. UTF-16 without BOM detection
+        if (bytes.Length >= MinBytesForUtf16Detection)
+        {
+            if (IsLikelyUtf16(bytes, littleEndian: true))
+            {
+                result.EncodingName = "UTF-16 LE";
+                result.HasBOM = false;
+                result.Confidence = "High";
+                result.Analysis = "Heuristic analysis detected UTF-16 Little Endian pattern (no BOM). Null bytes appear predominantly on odd positions.";
+                result.TechnicalNotes = "Codepage: 1200\nNote: Consider adding a BOM for better compatibility.";
+                return result;
+            }
+
+            if (IsLikelyUtf16(bytes, littleEndian: false))
+            {
+                result.EncodingName = "UTF-16 BE";
+                result.HasBOM = false;
+                result.Confidence = "High";
+                result.Analysis = "Heuristic analysis detected UTF-16 Big Endian pattern (no BOM). Null bytes appear predominantly on even positions.";
+                result.TechnicalNotes = "Codepage: 1201\nNote: Consider adding a BOM for better compatibility.";
+                return result;
+            }
+        }
+
+        // 4. ASCII check
+        if (IsAscii(bytes))
+        {
+            result.EncodingName = "ASCII";
+            result.HasBOM = false;
+            result.Confidence = "Very High";
+            result.Analysis = "File contains only 7-bit ASCII characters (0-127). Compatible with all text encodings.";
+            result.TechnicalNotes = "Codepage: 20127\nASCII is a subset of UTF-8, Windows-1252, and ISO-8859-1.";
+            return result;
+        }
+
+        // 5. UTF-8 validation
+        if (IsValidUtf8WithMultibyte(bytes))
+        {
+            result.EncodingName = "UTF-8";
+            result.HasBOM = false;
+            result.Confidence = "High";
+            result.Analysis = "Valid UTF-8 multi-byte sequences detected. This is likely UTF-8 encoded text without BOM.";
+            result.TechnicalNotes = "Codepage: 65001\nUTF-8 without BOM is common on Unix/Linux systems and modern web applications.";
+            return result;
+        }
+
+        // 6. Fallback
+        result.EncodingName = "Windows-1252";
+        result.HasBOM = false;
+        result.Confidence = "Low (Fallback)";
+        result.Analysis = "Could not definitively determine encoding. File likely uses Windows-1252 or another single-byte encoding.";
+        result.TechnicalNotes = "Codepage: 1252\nAlternatives: ISO-8859-1 (Latin-1), other regional codepages.\nThis is a fallback assumption based on common Windows encoding.";
+        return result;
+    }
+
     public static string DetectEncoding(string filePath)
     {
         var (message, _) = DetectEncodingWithStatus(filePath);

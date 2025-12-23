@@ -25,6 +25,7 @@ All offline. No data leaves your machine.
 - 🔐 Generate cryptographic hashes (MD5, SHA-1, SHA-256, SHA-512)
 - 🔎 Test and debug regular expressions with real-time feedback
 - 🎨 Convert colors between HEX, RGB, HSL, HSB, HWB, and CMYK formats
+- 📄 Detect file encodings with detailed analysis (UTF-8, UTF-16, ASCII, BOM detection)
 - 🔒 All offline. No data leaves your machine
 - ⚡ Lightweight and blazing fast
 
@@ -201,6 +202,29 @@ Parse and analyze URLs with detailed breakdown:
 - **Copy Functions** - Copy components or parameters separately
 - **Error Handling** - Clear messages for invalid URLs
 
+### 🔎 Regex Tester
+Test and debug regular expressions with real-time feedback:
+- **Split-Panel Interface:**
+  - **Top:** Regex pattern input
+  - **Middle:** Test text input
+  - **Bottom:** Match results and highlights
+- **Real-Time Matching** - See results as you type
+- **Match Highlighting** - Visual indication of matches in text
+- **Match Details:**
+  - Number of matches found
+  - Match groups and captures
+  - Match positions
+- **Regex Options:**
+  - Case-insensitive matching
+  - Multiline mode
+  - Single-line mode (dot matches newline)
+- **Error Handling** - Clear validation for invalid patterns
+- **Perfect for:**
+  - Testing regex patterns before use in code
+  - Debugging pattern matching issues
+  - Learning regular expressions
+  - Validating data extraction patterns
+
 ### ⏲️ Cron Parser
 Parse and understand CRON expressions:
 - **CRON Field Breakdown:**
@@ -219,6 +243,47 @@ Parse and understand CRON expressions:
   - `/` (slash) - Step values (e.g., */15 = every 15)
   - `-` (dash) - Ranges (e.g., 1-5 = Monday to Friday)
   - `,` (comma) - Multiple values (e.g., 1,3,5)
+
+### 📄 File Encoding Detector
+Analyze text file encodings with comprehensive detection:
+- **Drag & Drop Interface** - Drop files directly for instant analysis
+- **BOM Detection** - Identifies Byte Order Marks in files
+  - UTF-8 BOM (EF BB BF)
+  - UTF-16 LE/BE BOM (FF FE / FE FF)
+  - UTF-32 LE/BE BOM (FF FE 00 00 / 00 00 FE FF)
+- **Heuristic Analysis** - Detects encodings without BOM
+  - ASCII (7-bit clean text)
+  - UTF-8 (multi-byte validation)
+  - UTF-16 LE/BE (null byte pattern analysis)
+  - Windows-1252 (fallback for extended ASCII)
+- **Detailed Results Panel:**
+  - **Detected Encoding** - Clear encoding name
+  - **File Size** - Human-readable format with byte count
+  - **BOM Status** - ✓ Yes / ✗ No indicator
+  - **Confidence Level** - Very High, High, or Low (Fallback)
+  - **Analysis** - Plain-English explanation of detection method
+- **Technical Details** (Expandable)
+  - File metadata (path, size, last modified)
+  - Codepage numbers for precise encoding selection
+  - BOM byte sequences in hexadecimal
+  - Recommendations and compatibility notes
+- **Copy to Clipboard** - One-click copy of encoding name
+- **Binary File Detection** - Identifies non-text files
+- **Split-Panel Layout:**
+  - Left: File selection and drag-drop zone
+  - Right: Comprehensive detection results
+- **Real-Time Analysis** - Instant encoding detection
+- **Perfect for:**
+  - Debugging encoding issues
+  - Cross-platform file compatibility
+  - Understanding legacy file formats
+  - Determining correct encoding for import/export
+
+### 🔍 Detection Methods
+The File Encoding Detector uses three detection strategies:
+1. **BOM Signatures** (Very High Confidence) - Most reliable, checks for Byte Order Marks
+2. **Heuristic Analysis** (High Confidence) - Pattern-based detection for files without BOMs
+3. **Fallback Detection** (Low Confidence) - Best-effort guess for ambiguous files
 
 ## 🔒 Privacy & Security
 

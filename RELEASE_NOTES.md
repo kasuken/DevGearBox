@@ -1,4 +1,63 @@
-﻿# DevGearbox v0.0.1 - Initial Release 🎉
+﻿# DevGearbox - Release Notes
+
+## 🚀 v1.1.0 - File Encoding Detector Enhancement
+
+**Release Date:** December 23, 2025
+
+### 📄 File Encoding Detector - Complete UI/UX Overhaul
+
+We've completely redesigned the File Encoding Detector with a focus on providing developers with comprehensive, actionable encoding information.
+
+#### ✨ What's New in v1.1.0
+
+**Modern Two-Column Layout**
+- Professional split-panel interface optimized for information density
+- Left: Large, intuitive drag-drop zone with file selection
+- Right: Detailed results panel showing all encoding metadata
+
+**Enhanced Detection Results**
+- **Prominent Encoding Display** - Large, easy-to-read encoding name in highlighted card
+- **File Information Section:**
+  - Human-readable file size (e.g., "1.23 KB") with exact byte count
+  - BOM status with clear ✓ Yes / ✗ No visual indicators
+  - Confidence levels: Very High, High, or Low (Fallback)
+  - Plain-English analysis explaining the detection method
+- **Expandable Technical Details:**
+  - Complete file metadata (full path, last modified timestamp)
+  - Codepage numbers for precise encoding selection
+  - BOM byte sequences in hexadecimal format
+  - Expert recommendations and compatibility notes
+
+**Improved User Experience**
+- One-click "Copy Encoding" button for instant clipboard access
+- Larger, more responsive drag-and-drop zone
+- Better visual feedback with hover effects
+- Context-aware status messages
+- Detection methods info card explaining the three detection approaches
+- Scrollable results panel for comprehensive information
+
+**Enhanced Backend**
+- New `EncodingResult` class with rich detection properties
+- `DetectEncodingDetailed()` method provides comprehensive analysis
+- Maintains backward compatibility with existing code
+
+**Perfect For:**
+- Debugging encoding issues in cross-platform projects
+- Understanding legacy file formats
+- Determining correct encoding for data import/export
+- Learning about text encodings and BOMs
+
+#### 🎯 Key Improvements
+
+✨ **Better UX** - Intuitive two-column layout with comprehensive results  
+✨ **More Information** - BOM status, confidence levels, and detailed analysis  
+✨ **Technical Details** - Codepage numbers and recommendations for developers  
+✨ **One-Click Copy** - Quick clipboard access for encoding names  
+✨ **Professional UI** - Modern card-based design with clear visual hierarchy  
+
+---
+
+# DevGearbox v0.0.1 - Initial Release 🎉
 
 **Release Date:** December 22, 2025
 
