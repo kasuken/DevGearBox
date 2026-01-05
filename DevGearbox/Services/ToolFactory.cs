@@ -106,6 +106,12 @@ public class ToolFactory
                 "📝",
                 "Generate placeholder text of different lengths using Bogus",
                 new LoremIpsumGeneratorView()
+            ),
+            new ToolItem(
+                "Windows Cleaner",
+                "🧼",
+                "Scan and clean temporary files and caches from your Windows machine",
+                new WindowsCleanerView()
             )
         };
     }

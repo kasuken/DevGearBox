@@ -1,0 +1,123 @@
+<UserControl x:Class="DevGearbox.Components.WindowsCleanerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Windows Cleaner" FontSize="24" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBlock Text="Scan and clean temporary files and unnecessary resources from your Windows machine" 
+                       Foreground="Gray" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
+            <Button x:Name="ScanButton" Content="🔍 Scan for Cleanup" 
+                    Padding="15,8" FontSize="14" FontWeight="SemiBold"
+                    Click="ScanButton_Click" Margin="0,0,10,0"/>
+            <Button x:Name="CleanButton" Content="🧹 Clean Selected" 
+                    Padding="15,8" FontSize="14" FontWeight="SemiBold"
+                    Click="CleanButton_Click" IsEnabled="False" Margin="0,0,10,0"/>
+            <Button x:Name="SelectAllButton" Content="Select All" 
+                    Padding="10,8" FontSize="12"
+                    Click="SelectAllButton_Click" IsEnabled="False" Margin="0,0,10,0"/>
+            <Button x:Name="DeselectAllButton" Content="Deselect All" 
+                    Padding="10,8" FontSize="12"
+                    Click="DeselectAllButton_Click" IsEnabled="False" Margin="0,0,15,0"/>
+            
+            <!-- Settings Expander -->
+            <Expander Header="⚙️ Settings" VerticalAlignment="Center">
+                <StackPanel Margin="10,5,10,10">
+                    <CheckBox x:Name="IncludeWindowsTempCheckBox" Content="Windows Temp Folders" IsChecked="True" Margin="0,5,0,0"/>
+                    <CheckBox x:Name="IncludePrefetchCheckBox" Content="Prefetch Files" IsChecked="True" Margin="0,5,0,0"/>
+                    <CheckBox x:Name="IncludeRecycleBinCheckBox" Content="Recycle Bin" IsChecked="False" Margin="0,5,0,0"/>
+                    <CheckBox x:Name="IncludeBrowserCachesCheckBox" Content="Browser Caches" IsChecked="False" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+
+        <!-- Results List -->
+        <Border Grid.Row="2" BorderBrush="LightGray" BorderThickness="1" CornerRadius="4" Margin="0,0,0,15">
+            <Grid>
+                <ListView x:Name="ResultsListView" 
+                          SelectionMode="Multiple"
+                          SelectionChanged="ResultsListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="120" DisplayMemberBinding="{Binding Category}">
+                                <GridViewColumnHeader Content="Category" Click="GridViewColumnHeader_Click" Tag="Category"/>
+                            </GridViewColumn>
+                            <GridViewColumn Width="350" DisplayMemberBinding="{Binding Path}">
+                                <GridViewColumnHeader Content="Path" Click="GridViewColumnHeader_Click" Tag="Path"/>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100" DisplayMemberBinding="{Binding SizeFormatted}">
+                                <GridViewColumnHeader Content="Size" Click="GridViewColumnHeader_Click" Tag="Size"/>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150" DisplayMemberBinding="{Binding StatusText}">
+                                <GridViewColumnHeader Content="Status" Click="GridViewColumnHeader_Click" Tag="StatusText"/>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                <!-- Empty State -->
+                <TextBlock x:Name="EmptyStateText" 
+                           Text="Click 'Scan for Cleanup' to find temporary files and caches"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Foreground="Gray" FontSize="14"
+                           Visibility="Visible"/>
+            </Grid>
+        </Border>
+
+        <!-- Summary -->
+        <Border Grid.Row="3" Background="#F5F5F5" Padding="15" CornerRadius="4" Margin="0,0,0,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Total Files" FontSize="12" Foreground="Gray"/>
+                    <TextBlock x:Name="TotalFilesText" Text="0" FontSize="18" FontWeight="Bold"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Total Size" FontSize="12" Foreground="Gray"/>
+                    <TextBlock x:Name="TotalSizeText" Text="0 B" FontSize="18" FontWeight="Bold"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Selected" FontSize="12" Foreground="Gray"/>
+                    <TextBlock x:Name="SelectedText" Text="0 items (0 B)" FontSize="18" FontWeight="Bold" Foreground="#2196F3"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Status -->
+        <StackPanel Grid.Row="4">
+            <TextBlock x:Name="StatusText" 
+                       FontSize="12" 
+                       Foreground="Gray"
+                       TextWrapping="Wrap"
+                       Text="Ready to scan"/>
+            <ProgressBar x:Name="ProgressBar" 
+                         Height="4" 
+                         Margin="0,5,0,0"
+                         IsIndeterminate="False"
+                         Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

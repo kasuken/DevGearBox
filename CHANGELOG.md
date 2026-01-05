@@ -1,9 +1,81 @@
 ﻿﻿# Changelog
 
-All notable changes to DevGearbox will be documented in this file.
+## [1.2.0] - 2026-01-05
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### ✨ Added
+
+#### Windows Cleaner - NEW TOOL
+- **System Cleanup Tool** - Scan and clean temporary files and caches from your Windows machine
+  - **Smart Scanning:**
+    - Windows Temp folders (user and system temporary directories)
+    - Prefetch files (Windows performance optimization cache)
+    - Recycle Bin metadata
+    - Browser caches (Chrome, Edge, Firefox) with deep recursive scanning
+      - Standard caches
+      - Code caches
+      - GPU caches
+  - **Customizable Settings:**
+    - Settings expander with checkboxes for each scan location
+    - Independently toggle Windows Temp, Prefetch, Recycle Bin, and Browser Caches
+    - Safe defaults (Recycle Bin disabled by default for safety)
+    - Settings persist during session
+  - **Interactive Grid Interface:**
+    - **Sortable columns** - Click any column header to sort (Category, Path, Size, Status)
+    - Visual sort indicators (▲/▼) show current sort direction
+    - Smart numeric sorting for Size column (by bytes, not formatted string)
+    - Multi-select support for choosing specific items to clean
+    - Select All and Deselect All buttons for quick selection
+    - Real-time status shows which files can be safely deleted vs locked/in-use
+  - **Smart & Safe Deletion:**
+    - Only deletes files not currently in use or locked
+    - File-by-file validation before deletion
+    - Confirmation dialog with item count and total size
+    - Detailed cleanup summary with success/error counts
+    - Clear error messages for files that couldn't be deleted
+  - **Visual Feedback:**
+    - Total files and size summary at bottom of grid
+    - Selected items counter with total size
+    - Progress bar during scan and cleanup operations
+    - Async operations prevent UI freezing
+    - Status messages throughout the process
+  - **Results Display:**
+    - Category-based organization
+    - Full file paths displayed
+    - Human-readable file sizes (B, KB, MB, GB, TB)
+    - Status column shows "Ready" or specific error (e.g., "File in use")
+  - **Safe & Secure:**
+    - No system files or critical data touched
+    - Only scans safe temporary and cache locations
+    - Files locked by system or applications are skipped
+    - All operations performed locally (100% offline)
+    - Empty state messages guide user through workflow
+
+### 🛠️ Technical
+
+#### New Components
+- **WindowsCleaner.cs** - Core utility class for scanning and cleaning operations
+  - `CleanupItem` class - Represents individual files/folders with metadata
+  - `CleanupResult` class - Contains scan/cleanup results with errors
+  - `ScanSettings` class - Configurable scan options
+  - `ScanForCleanup()` - Scans system with customizable settings
+  - `PerformCleanup()` - Safely deletes selected items
+  - `FormatBytes()` - Human-readable file size formatting
+- **WindowsCleanerView.xaml** - WPF user interface
+  - Sortable ListView with GridView columns
+  - Settings expander with checkboxes
+  - Action buttons (Scan, Clean, Select All/Deselect All)
+  - Summary panel with statistics
+  - Progress indicators and status messages
+- **WindowsCleanerView.xaml.cs** - Event handlers and UI logic
+  - Async scan and cleanup operations
+  - Column header click sorting with visual indicators
+  - Selection tracking and button state management
+  - `CleanupItemViewModel` for data binding
+
+#### Architecture
+- Follows DevGearbox patterns: thin UI views, core logic in Utils
+- Registered in `ToolFactory.cs` with 🧼 icon
+- Integrated into tab-based navigation system
 
 ## [1.1.0] - 2025-12-23
 

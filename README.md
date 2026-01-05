@@ -12,7 +12,7 @@ All offline. No data leaves your machine.
 
 ## ✨ Features
 
-- 🧹 Format JSON, XML, and other data types
+- �🧹 Format JSON, XML, and other data types
 - 📊 Convert between JSON and CSV formats bidirectionally
 - 🔢 Convert numbers between Binary, Octal, Decimal, and Hexadecimal with real-time updates
 - ⏲️ Parse and understand CRON expressions with detailed breakdown
@@ -28,8 +28,47 @@ All offline. No data leaves your machine.
 - 📄 Detect file encodings with detailed analysis (UTF-8, UTF-16, ASCII, BOM detection)
 - 🔒 All offline. No data leaves your machine
 - ⚡ Lightweight and blazing fast
+- 🧹 Clean temporary files and caches from Windows with customizable scan settings
 
 ## Detailed Features
+
+### 🧼 Windows Cleaner
+Scan and clean temporary files and caches from your Windows machine:
+- **Smart Scanning:**
+  - Windows Temp folders (user and system)
+  - Prefetch files
+  - Recycle Bin metadata
+  - Browser caches (Chrome, Edge, Firefox)
+    - Standard caches
+    - Code caches
+    - GPU caches
+- **Customizable Settings:**
+  - Toggle scan locations on/off via settings expander
+  - Independently control Windows Temp, Prefetch, Recycle Bin, and Browser Caches
+  - Safe defaults (Recycle Bin disabled by default)
+- **Interactive Grid:**
+  - **Sortable columns** - Click headers to sort by Category, Path, Size, or Status
+  - **Multi-select** - Choose specific items to clean
+  - **Select All/Deselect All** - Quick selection controls
+  - **Real-time status** - Shows which files can be safely deleted
+- **Smart Deletion:**
+  - Only deletes files not in use or locked
+  - Confirmation dialog before cleanup
+  - Detailed summary after cleanup
+- **Visual Feedback:**
+  - Total files and size summary
+  - Selected items counter
+  - Progress indicators during scan and cleanup
+- **Safe & Secure:**
+  - No system files touched
+  - Only temporary and cache files
+  - Clear error messages for locked files
+  - All operations performed locally
+- **Perfect for:**
+  - Freeing up disk space
+  - Regular system maintenance
+  - Cleaning up after development work
+  - Removing browser cache buildup
 
 ### 🔄 Encoders & Decoders
 - **Base64 Encoder/Decoder**: Convert text to and from Base64 encoding

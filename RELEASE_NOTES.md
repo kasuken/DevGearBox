@@ -1,5 +1,78 @@
 ﻿# DevGearbox - Release Notes
 
+## 🚀 v1.2.0 - Windows Cleaner Tool
+
+**Release Date:** January 5, 2026
+
+### 🧼 Windows Cleaner - NEW TOOL
+
+We're excited to introduce a powerful new system maintenance tool that helps you reclaim disk space by safely cleaning temporary files and caches from your Windows machine.
+
+#### ✨ What's New in v1.2.0
+
+**Intelligent System Scanning**
+- Automatically scans multiple safe locations for cleanable files:
+  - **Windows Temp Folders** - User and system temporary directories
+  - **Prefetch Files** - Windows performance optimization cache
+  - **Browser Caches** - Chrome, Edge, and Firefox caches (including Code Cache and GPU Cache)
+  - **Recycle Bin** - Metadata and orphaned files
+- Deep recursive scanning finds files in nested directories
+- Smart file detection identifies safe-to-delete items
+
+**Customizable Scan Settings**
+- **Settings Expander** with individual checkboxes for each scan location
+- Toggle on/off: Windows Temp, Prefetch, Recycle Bin, Browser Caches
+- Safe defaults (Recycle Bin disabled by default for user safety)
+- Settings persist during your session for consistent scanning
+
+**Interactive Results Grid**
+- **Sortable Columns** - Click any column header (Category, Path, Size, Status) to sort
+  - Visual sort indicators (▲/▼) show current sort order
+  - Smart numeric sorting for file sizes
+- **Multi-Select Support** - Choose exactly which items to clean
+- **Select All/Deselect All** buttons for quick selection management
+- **Real-time Status** - Shows which files can be deleted vs locked/in-use
+- **Comprehensive Display:**
+  - Category-based organization
+  - Full file paths
+  - Human-readable file sizes (B, KB, MB, GB, TB)
+  - Status indicators ("Ready" or specific errors)
+
+**Safe & Smart Deletion**
+- **File Validation** - Only deletes files not currently in use or locked by the system
+- **Confirmation Dialog** - Shows item count and total size before cleanup
+- **Detailed Results** - Post-cleanup summary with success and error counts
+- **Error Handling** - Clear messages for files that couldn't be deleted
+- **Zero Risk** - System files and critical data are never touched
+
+**Visual Feedback & Statistics**
+- **Summary Panel** displaying:
+  - Total files found
+  - Total size of cleanable items
+  - Selected items count and size
+- **Progress Indicators** during scan and cleanup operations
+- **Status Messages** guide you through each step
+- **Async Operations** prevent UI freezing during long scans
+- **Empty State Messages** provide helpful guidance
+
+**Perfect For:**
+- 🗂️ Freeing up disk space quickly
+- 🧹 Regular system maintenance
+- 💻 Cleaning up after development sessions
+- 🌐 Removing browser cache buildup
+- ⚡ Speeding up your machine
+
+#### 🎯 Key Features
+
+✨ **Smart Scanning** - Finds temporary files across multiple safe locations  
+✨ **Customizable** - Control exactly what gets scanned  
+✨ **Sortable Grid** - Organize results by category, path, size, or status  
+✨ **Multi-Select** - Clean only what you want  
+✨ **Safe Deletion** - Skips locked files automatically  
+✨ **100% Offline** - All operations performed locally  
+
+---
+
 ## 🚀 v1.1.0 - File Encoding Detector Enhancement
 
 **Release Date:** December 23, 2025
