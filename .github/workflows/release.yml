@@ -59,13 +59,12 @@ jobs:
       run: |
         if (Test-Path "RELEASE_NOTES.md") {
           $notes = Get-Content "RELEASE_NOTES.md" -Raw
-          # Escape for GitHub Actions
-          $notes = $notes -replace '%', '%25'
-          $notes = $notes -replace '\r', '%0D'
-          $notes = $notes -replace '\n', '%0A'
-          echo "NOTES=$notes" >> $env:GITHUB_OUTPUT
+          # Save to file to avoid escaping issues
+          $notes | Out-File -FilePath "release_body.txt" -Encoding utf8 -NoNewline
+          echo "NOTES_FILE=release_body.txt" >> $env:GITHUB_OUTPUT
         } else {
-          echo "NOTES=Release ${{ github.ref_name }}" >> $env:GITHUB_OUTPUT
+          "Release ${{ github.ref_name }}" | Out-File -FilePath "release_body.txt" -Encoding utf8 -NoNewline
+          echo "NOTES_FILE=release_body.txt" >> $env:GITHUB_OUTPUT
         }
       shell: pwsh
       
@@ -73,7 +72,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         name: DevGearbox ${{ github.ref_name }}
-        body: ${{ steps.release_notes.outputs.NOTES }}
+        body_path: release_body.txt
         draft: false
         prerelease: false
         files: |
