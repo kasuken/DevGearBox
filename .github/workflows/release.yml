@@ -1,0 +1,79 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        
+    - name: Get version from tag
+      id: get_version
+      run: |
+        $version = "${{ github.ref_name }}" -replace '^v', ''
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "Version: $version"
+      shell: pwsh
+      
+    - name: Restore dependencies
+      run: dotnet restore DevGearbox/DevGearbox.csproj
+      
+    - name: Build self-contained application
+      run: |
+        dotnet publish DevGearbox/DevGearbox.csproj `
+          --configuration Release `
+          --runtime win-x64 `
+          --self-contained true `
+          --output ./publish `
+          -p:PublishSingleFile=true `
+          -p:PublishTrimmed=false `
+          -p:IncludeNativeLibrariesForSelfExtract=true
+      shell: pwsh
+      
+    - name: Create release package
+      run: |
+        $version = "${{ steps.get_version.outputs.VERSION }}"
+        $zipName = "DevGearbox-v$version-win-x64.zip"
+        Compress-Archive -Path ./publish/* -DestinationPath $zipName
+        echo "ZIP_NAME=$zipName" >> $env:GITHUB_OUTPUT
+        echo "Created package: $zipName"
+      id: package
+      shell: pwsh
+      
+    - name: Read release notes
+      id: release_notes
+      run: |
+        if (Test-Path "RELEASE_NOTES.md") {
+          $notes = Get-Content "RELEASE_NOTES.md" -Raw
+          # Escape for GitHub Actions
+          $notes = $notes -replace '%', '%25'
+          $notes = $notes -replace '\r', '%0D'
+          $notes = $notes -replace '\n', '%0A'
+          echo "NOTES=$notes" >> $env:GITHUB_OUTPUT
+        } else {
+          echo "NOTES=Release ${{ github.ref_name }}" >> $env:GITHUB_OUTPUT
+        }
+      shell: pwsh
+      
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: DevGearbox ${{ github.ref_name }}
+        body: ${{ steps.release_notes.outputs.NOTES }}
+        draft: false
+        prerelease: false
+        files: |
+          ${{ steps.package.outputs.ZIP_NAME }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
