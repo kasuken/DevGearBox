@@ -81,7 +81,7 @@
         </Border>
 
         <!-- Summary -->
-        <Border Grid.Row="3" Background="#F5F5F5" Padding="15" CornerRadius="4" Margin="0,0,0,15">
+        <Border Grid.Row="3" Background="#2D2D30" Padding="20" CornerRadius="4" Margin="0,0,0,15">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -90,18 +90,18 @@
                 </Grid.ColumnDefinitions>
                 
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Total Files" FontSize="12" Foreground="Gray"/>
-                    <TextBlock x:Name="TotalFilesText" Text="0" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="Total Files" FontSize="14" Foreground="#A0A0A0" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="TotalFilesText" Text="0" FontSize="24" FontWeight="Bold" Foreground="White" Margin="0,5,0,0"/>
                 </StackPanel>
                 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="Total Size" FontSize="12" Foreground="Gray"/>
-                    <TextBlock x:Name="TotalSizeText" Text="0 B" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="Total Size" FontSize="14" Foreground="#A0A0A0" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="TotalSizeText" Text="0 B" FontSize="24" FontWeight="Bold" Foreground="White" Margin="0,5,0,0"/>
                 </StackPanel>
                 
                 <StackPanel Grid.Column="2">
-                    <TextBlock Text="Selected" FontSize="12" Foreground="Gray"/>
-                    <TextBlock x:Name="SelectedText" Text="0 items (0 B)" FontSize="18" FontWeight="Bold" Foreground="#2196F3"/>
+                    <TextBlock Text="Selected" FontSize="14" Foreground="#A0A0A0" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="SelectedText" Text="0 items (0 B)" FontSize="24" FontWeight="Bold" Foreground="#4CAF50" Margin="0,5,0,0"/>
                 </StackPanel>
             </Grid>
         </Border>
