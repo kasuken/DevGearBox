@@ -1,6 +1,6 @@
 ﻿# 🛠️ DevGearbox
 
-<p align="center"> <img src="https://img.shields.io/badge/Platform-Windows-blue" alt="Platform: Windows" /> <img src="https://img.shields.io/badge/Built%20With-Windows%20Forms-lightgrey" alt="Built With: Windows Forms" /> <img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT" /> <img src="https://img.shields.io/badge/Status-Alpha-orange" alt="Status: Alpha" /> <img src="https://img.shields.io/badge/Offline-Yes-success" alt="Offline: Yes" /> <img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen" alt="Contributions Welcome" /> </p>
+<p align="center"> <img src="https://img.shields.io/badge/Platform-Windows-blue" alt="Platform: Windows" /> <img src="https://img.shields.io/badge/Built%20With-WPF-lightgrey" alt="Built With: Windows Forms" /> <img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT" /> <img src="https://img.shields.io/badge/Status-Alpha-orange" alt="Status: Alpha" /> <img src="https://img.shields.io/badge/Offline-Yes-success" alt="Offline: Yes" /> <img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen" alt="Contributions Welcome" /> </p>
 
 **Your personal offline Swiss Army knife for developers**
 
