@@ -40,8 +40,8 @@ public class WindowsCleaner
     public static CleanupResult ScanForCleanup(ScanSettings? settings = null)
     {
         settings ??= new ScanSettings();
-        settings ??= new ScanSettings();
         var result = new CleanupResult();
+
 
         try
         {

@@ -1,7 +1,9 @@
-﻿using System.Windows;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 namespace DevGearbox.Components;
 public partial class TextTransformerView : UserControl
+
 {
     public TextTransformerView()
     {
@@ -9,42 +11,57 @@ public partial class TextTransformerView : UserControl
     }
     private void TextUpperCase_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.ToUpperCase(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.ToUpperCase);
     }
+
     private void TextLowerCase_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.ToLowerCase(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.ToLowerCase);
     }
+
     private void TextPascalCase_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.ToPascalCase(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.ToPascalCase);
     }
+
     private void TextCamelCase_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.ToCamelCase(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.ToCamelCase);
     }
+
     private void TextSnakeCase_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.ToSnakeCase(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.ToSnakeCase);
     }
+
     private void TextKebabCase_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.ToKebabCase(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.ToKebabCase);
     }
+
     private void TextReverse_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.Reverse(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.Reverse);
     }
+
     private void TextRemoveWhitespace_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.RemoveWhitespace(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.RemoveWhitespace);
     }
+
     private void TextUrlEncode_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.UrlEncode(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.UrlEncode);
     }
+
     private void TextUrlDecode_Click(object sender, RoutedEventArgs e)
     {
-        TextOutput.Text = Utils.TextTransformer.UrlDecode(TextTransformInput.Text);
+        ApplyTransform(Utils.TextTransformer.UrlDecode);
+    }
+
+    private void ApplyTransform(Func<string, string> transform)
+    {
+        ToolActionHelper.SetOutput(TextOutput, () => transform(TextTransformInput.Text));
     }
 }
+

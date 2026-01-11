@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 namespace DevGearbox.Components;
@@ -11,37 +11,42 @@ public partial class TimestampConverterView : UserControl
     }
     private void UnixToDateTime_Click(object sender, RoutedEventArgs e)
     {
-        UnixToDateTimeOutput.Text = Utils.TimestampConverter.UnixToDateTime(UnixTimestampInput.Text);
+        ToolActionHelper.SetOutput(UnixToDateTimeOutput, () => Utils.TimestampConverter.UnixToDateTime(UnixTimestampInput.Text));
     }
+
     private void DateTimeToUnix_Click(object sender, RoutedEventArgs e)
     {
-        try
+        ToolActionHelper.SetOutput(DateTimeToUnixOutput, () =>
         {
-            if (DatePickerInput.SelectedDate.HasValue)
+            if (!TryBuildDateTime(out var dateTime, out var error))
             {
-                var date = DatePickerInput.SelectedDate.Value;
-                var timeParts = TimeInput.Text.Split(':');
-                if (timeParts.Length == 3 &&
-                    int.TryParse(timeParts[0], out int hours) &&
-                    int.TryParse(timeParts[1], out int minutes) &&
-                    int.TryParse(timeParts[2], out int seconds))
-                {
-                    var dateTime = new DateTime(date.Year, date.Month, date.Day, hours, minutes, seconds);
-                    DateTimeToUnixOutput.Text = Utils.TimestampConverter.DateTimeToUnix(dateTime);
-                }
-                else
-                {
-                    DateTimeToUnixOutput.Text = "Invalid time format. Use HH:mm:ss";
-                }
+                return error;
             }
-            else
-            {
-                DateTimeToUnixOutput.Text = "Please select a date";
-            }
-        }
-        catch (Exception ex)
+
+            return Utils.TimestampConverter.DateTimeToUnix(dateTime);
+        });
+    }
+
+    private bool TryBuildDateTime(out DateTime dateTime, out string error)
+    {
+        dateTime = DateTime.MinValue;
+        error = string.Empty;
+
+        if (!DatePickerInput.SelectedDate.HasValue)
         {
-            DateTimeToUnixOutput.Text = $"Error: {ex.Message}";
+            error = "Please select a date";
+            return false;
         }
+
+        if (!TimeSpan.TryParse(TimeInput.Text, out var time))
+        {
+            error = "Invalid time format. Use HH:mm:ss";
+            return false;
+        }
+
+        var date = DatePickerInput.SelectedDate.Value;
+        dateTime = date.Date.Add(time);
+        return true;
     }
 }
+
