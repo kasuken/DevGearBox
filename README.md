@@ -51,14 +51,16 @@ Scan and clean temporary files and caches from your Windows machine:
   - **Multi-select** - Choose specific items to clean
   - **Select All/Deselect All** - Quick selection controls
   - **Real-time status** - Shows which files can be safely deleted
+  - **Enhanced UI** - Larger, more visible summary with improved contrast and styling
 - **Smart Deletion:**
   - Only deletes files not in use or locked
   - Confirmation dialog before cleanup
   - Detailed summary after cleanup
 - **Visual Feedback:**
-  - Total files and size summary
-  - Selected items counter
+  - **Prominent statistics** - Large, easy-to-read total files and size display
+  - Selected items counter with file size
   - Progress indicators during scan and cleanup
+  - Dark-themed summary bar for better visibility
 - **Safe & Secure:**
   - No system files touched
   - Only temporary and cache files

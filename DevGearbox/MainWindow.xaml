@@ -115,7 +115,7 @@
             <Grid>
                 <TextBlock Name="StatusText" Text="Ready" Foreground="White" FontSize="11" VerticalAlignment="Center"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <TextBlock Text="v0.0.1" Foreground="White" FontSize="10" Margin="0,0,12,0" Opacity="0.8"/>
+                    <TextBlock Text="v1.3.0" Foreground="White" FontSize="10" Margin="0,0,12,0" Opacity="0.8"/>
                     <TextBlock Text="DevGearbox © 2025" Foreground="White" FontSize="10" Opacity="0.8"/>
                 </StackPanel>
             </Grid>

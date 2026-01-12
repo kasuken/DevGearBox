@@ -1,5 +1,24 @@
 ﻿﻿# Changelog
 
+## [1.3.0] - 2026-01-12
+
+### ✨ Enhanced
+
+#### UI/UX Improvements
+- **Windows Cleaner Summary Bar:**
+  - Increased visibility with dark theme background (#2D2D30)
+  - Larger font sizes (24px) for statistics values
+  - Improved contrast with white text on dark background
+  - Enhanced visual hierarchy with SemiBold labels
+  - Increased padding (20px) for better spacing
+  - Better visual distinction for selected items counter (bright green)
+- **MainWindow Layout:**
+  - Updated ContentControl properties to stretch vertically and horizontally
+  - Improved layout management for better responsiveness
+- **App Styling:**
+  - Added new ui:Card style for proper alignment in scroll viewers
+  - Enhanced overall visual consistency
+
 ## [1.2.0] - 2026-01-05
 
 ### ✨ Added
